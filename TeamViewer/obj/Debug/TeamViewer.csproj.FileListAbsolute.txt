@@ -67,4 +67,6 @@ C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.migracja.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.newemployeedto.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.points.resources
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.taskadded.resources
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.taskaddeddb.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csprojResolveAssemblyReference.cache

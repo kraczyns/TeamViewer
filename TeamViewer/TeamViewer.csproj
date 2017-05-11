@@ -194,10 +194,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\DayOffsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\EmployeesViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,9 +227,19 @@
     <Compile Include="Migrations\201705100753464_points.Designer.cs">
       <DependentUpon>201705100753464_points.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705111409245_taskadded.cs" />
+    <Compile Include="Migrations\201705111409245_taskadded.Designer.cs">
+      <DependentUpon>201705111409245_taskadded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705111437194_taskaddeddb.cs" />
+    <Compile Include="Migrations\201705111437194_taskaddeddb.Designer.cs">
+      <DependentUpon>201705111437194_taskaddeddb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DayOff.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TeamViewerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -269,6 +281,7 @@
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
@@ -305,6 +318,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705100753464_points.resx">
       <DependentUpon>201705100753464_points.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705111409245_taskadded.resx">
+      <DependentUpon>201705111409245_taskadded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705111437194_taskaddeddb.resx">
+      <DependentUpon>201705111437194_taskaddeddb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

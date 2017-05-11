@@ -24,6 +24,8 @@ namespace TeamViewer.Models
 
         public System.Data.Entity.DbSet<TeamViewer.Models.Employee> Employees { get; set; }
 
-        public System.Data.Entity.DbSet<TeamViewer.Models.EmployeeDTO> EmployeeDTOes { get; set; }
+        public System.Data.Entity.DbSet<TeamViewer.Models.DayOff> DayOffs { get; set; }
+
+        public System.Data.Entity.DbSet<TeamViewer.Models.Task> Tasks { get; set; }
     }
 }
