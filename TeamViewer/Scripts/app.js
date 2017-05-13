@@ -9,32 +9,47 @@
     self._days = ko.observableArray();
     self.error = ko.observable();
     self.query = ko.observable("");
-    self.manager = ko.observable();
+    self.manager = ko.observable("");
+
     self.filteredEmployees = ko.computed(function () {
-        var filter = self.query().toLowerCase();
-        var searchedEmployees = self.employees();
-        var filtered = self.employees();
-        if (!filter) {
+        console.log('manager: ', self.manager());
+        var filterSearch = self.query().toLowerCase();
+        var filterManager = self.manager().toLowerCase();
+        var filteredManager = self.employees();
+        var filteredSearch = self.employees();
+
+        if (filterSearch && !filterManager){
+            return ko.utils.arrayFilter(filteredManager, function (item) {
+                filteredSearch = item.Name.toLowerCase().indexOf(filterSearch) !== -1;
+                return filteredSearch;
+            });
+        } else if (!filterManager && !filterSearch) {
             return self.employees();
-        } else {
-            return ko.utils.arrayFilter(filtered, function (item) {
-                searchedEmployees = item.Name.toLowerCase().indexOf(filter) !== -1;
-                return searchedEmployees;
+        } else if (filterManager && !filterSearch) {
+            return ko.utils.arrayFilter(filteredSearch, function (item) {
+                console.log('managerId: ', item.ManagerId);
+                console.log('manager: ', filterManager);
+                filteredManager = item.Manager.Name.toLowerCase().indexOf(filterManager) !== -1;
+                return filteredManager;
+            });
+        } else if (filterManager && filterSearch) {
+            return ko.utils.arrayFilter(self.employees(), function (item) {
+                console.log('managerId: ', item.ManagerId);
+                console.log('manager: ', filterManager);
+                return item.Manager.Name.toLowerCase().indexOf(filterManager) !== -1 && item.Name.toLowerCase().indexOf(filterSearch) !== -1;
             });
         }
-        $log.debug(self.manager);
-        if (!self.manager()) {
-            return searchedEmployees;
-        } else {
-
-            return ko.utils.arrayFilter(searchedEmployees, function (item) {
-                filtered = item.Manage === self.manager();
-                return filtered;
-            });
-        }
-
     });
+    self.getCurrentEmployees = function() {
+        var selectedVal = self.manager();
 
+        if (!selectedVal)
+            return self.employees;
+
+        return self.employees().filter(function (f) {
+            return f.ManagerId === selectedVal.ManagerId;
+        });
+    };
     var employeesUri = '/api/employees';
     var daysUri = '/api/dayoffs';
     var tasksUri = '/api/tasks';
@@ -122,6 +137,7 @@
             self.managers(data);
         });
     }
+    
     function getAllTasks() {
         ajaxHelper(tasksUri, 'GET').done(function (data) {
             self._tasks(data);
@@ -137,6 +153,7 @@
     getAllDaysOff();
     getAllTasks();
     getAllManagers();
+
 };
 
 ko.applyBindings(new ViewModel());

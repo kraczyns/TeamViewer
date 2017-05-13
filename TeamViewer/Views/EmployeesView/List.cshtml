@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Pracownicy";
 }
-
 <h1>
 
 </h1>
@@ -19,13 +18,12 @@
                 <div class="searchForm">
                     <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
                 </div>
-                <div class="filterManager">
-                <select class="form-control" data-bind="options: managers, optionsText: 'Name', value: manager">
-                    </select>
-                    </div>
+                   <div class="searchManagerForm">
+                    <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: manager" autocomplete="off" />
+                </div>
                 <br>
                 <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
-                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
+                <ul class="list-unstyled" data-bind= "foreach: filteredEmployees">
                     <li>
                         <a href="#" data-bind="click: $parent.getDetails"><span data-bind="text: Name"></span></a>
                     </li>
