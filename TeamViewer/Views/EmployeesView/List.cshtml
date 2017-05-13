@@ -40,7 +40,7 @@
                 <span class="glyphicon glyphicon-bookmark"></span> Charakterystyka pracownika
             </div>
             <table class="table">
-                <tr><td>Wybrany pracownik: </td><td data-bind="text: detail().Name"></td><td></td></tr>
+                <tr><td>Wybrany pracownik: </td><td data-bind="text: detail().Name"></td></tr>
                 <tr>
                     <td>Przynależność do zespołu: </td>
                     <td>
@@ -52,16 +52,53 @@
                         </ul>
 
                     </td>
-                    <td></td>
                 </tr>
-                <tr><td>Liczba ukonczonych zadan: </td><td> liczba </td><td></td></tr>
+                <tr><td>Liczba ukonczonych zadan: </td><td> liczba </td></tr>
                 <tr><td>Punkty: </td><td data-bind="text: detail().Points"></td>
-                    <td><button class="btn btn-success" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-gift"></span></button></td>
                 </tr>
+                <tr>
+                    <Td>
+                        <button class="btn btn-success" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-gift"></span></button>
+                        <button class="btn btn-success" data-toggle="collapse" data-target="#tasks"><span class="glyphicon glyphicon-tasks"></span></button>
+                        <button class="btn btn-success" data-toggle="collapse" data-target="#daysoff"><span class="glyphicon glyphicon-calendar"></span></button>
+                        <button class="btn btn-success" data-toggle="collapse" data-target="#updateEmployee"><span class="glyphicon glyphicon-pencil"></span></button>
+                    </Td>
+                    <td>
+                    </td>
+                </tr>
+                
             </table>
-                <button class="btn btn-success btn-lg btn-block">Edycja<span class="glyphicon glyphicon-pencil"></span></button>
+               
         </div>
     </div> 
+    <div id="updateEmployee" class="collapse">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading h4">
+                    Edycja pracownika
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <strong>Manager: </strong>
+                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-bind="with: updatedEmployee">
+                            
+                            <div class="col-sm-10">
+                                <strong>Imię Nazwisko: </strong>
+                                <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                            </div>
+                        </div>
+                        <button data-bind="click: $root.updateEmployee" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="demo" class="collapse">
         <div class="col-md-4">
             <div class="panel panel-success">
@@ -76,70 +113,94 @@
                 <div class="panel-body">
                     <form class="pointsAssingment">
                         <div class="form-group" data-bind="with: employee">
-                            <label for="inputTime">Czas wykonania zadania:</label>
-                            <input type="number" class="form-control" id="inputTime" min="0" max="5" placeholder="0" data-bind="value:time">
+                            <strong>Czas wykonania zadania: </strong>
+                            <span><input type="number" class="form-control" id="inputTime" min="0" max="5" placeholder="0" data-bind="value:time"></span>
                         </div>
                         <div class="form-group" data-bind="with: employee">
-                            <label for="inputTeam">Praca w zespole:</label>
-                            <input type="number" class="form-control" id="inputTeam" min="0" max="5" placeholder="0" data-bind="value:team">
+                            <strong>Praca w zespole:</strong>
+                            <span><input type="number" class="form-control" id="inputTeam" min="0" max="5" placeholder="0" data-bind="value:team"></span>
                         </div>
                         <div class="form-group" data-bind="with: employee">
-                            <label for="inputQuality">Jakość pracy:</label>
-                            <input type="number" class="form-control" id="inputQuality" min="0" max="5" placeholder="0" data-bind="value:quality">
+                            <strong>Jakość pracy:</strong>
+                            <span><input type="number" class="form-control" id="inputQuality" min="0" max="5" placeholder="0" data-bind="value:quality"></span>
                         </div>
-                        <button class="btn btn-success btn-lg btn-block" data-bind="click: $root.addPoints(detail())">Przydziel punkty</button>
+                        <button class="btn btn-success btn-lg btn-block" data-bind="click: $root.addPoints">Przydziel punkty</button>
                     </form>
                 </div>
             </div>
         </div> 
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-success">
-            <div class="panel-heading h4">
-                <span class="glyphicon glyphicon-tasks"></span>
-                Zadania w toku &nbsp;
+    <div class="collapse" id="tasks">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-tasks"></span>
+                    Zadania w toku &nbsp;
+                </div>
+                <div class="panel-body">
+                    <div class="tasks" data-bind="foreach: tasks">
+                        <div class="well">
+                            <div>
+                                <strong>Data rozpoczęcia: </strong>
+                                <span data-bind="text: moment(StartDate).format('l')"></span>
+                            </div>
+                            <div>
+                                <strong>Data zakończenia: </strong>
+                                <span data-bind="text: moment(EndDate).format('l')"></span>
+                            </div>
+                            <div>
+                                <strong>Opis: </strong>
+                                <span data-bind="text: Description"></span>
+                            </div>
+                            <div>
+                                <strong>Punkty: </strong>
+                                <span data-bind="text: Points "></span>
+                            </div>
+                            <div align="right">
+                                <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success btn-lg btn-block">Dodaj zadanie</button>
+                </div>
             </div>
-            <div class="panel-body">
-                <div class="tasks" data-bind="foreach: tasks">
-                 <div class="well">
-                     <div>
-                         <strong>Data rozpoczęcia: </strong>
-                         <span data-bind="text: moment(StartDate).format('L')"></span>
-                     </div>
-                     <div>
-                         <strong>Data zakończenia: </strong>
-                         <span data-bind="text: moment(EndDate).format('L')"></span>
-                     </div>
-                     <div>
-                         <strong>Opis: </strong>
-                         <span data-bind="text: Description"></span>
-                     </div>
-                     <div>
-                         <strong>Punkty: </strong>
-                         <span data-bind="text: Points "></span>
-                     </div>
-                     <div align="right">
-                         <button class="btn btn-success">Edycja<span class="glyphicon glyphicon-pencil"></span></button>
-                     </div>
-                 </div>
-            </div>
-                <button class="btn btn-success btn-lg btn-block">Dodaj zadanie</button>
-        </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-success">
-            <div class="panel-heading h4">
-                <span class="glyphicon glyphicon-calendar"></span>
-                Urlop
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: daysOff">
-                    <li>
-                        <span data-bind="text: moment(Date).format('L')"></span>
-                    </li>
-                </ul>
-                <button class="btn btn-success btn-lg btn-block">Dodaj urlop</button>
+ <div class="collapse" id="daysoff">
+     <div class="col-md-4">
+         <div class="panel panel-success">
+             <div class="panel-heading h4">
+                 <span class="glyphicon glyphicon-calendar"></span>
+                 Urlop
+             </div>
+             <div class="panel-body">
+                 <ul class="list-unstyled" data-bind="foreach: daysOff">
+                     <li>
+                         <span data-bind="text: moment(Date).format('l')"></span>
+                     </li>
+                 </ul>
+                 <button data-toggle="collapse" data-target="#addDayOff" class="btn btn-success btn-lg btn-block">Dodaj urlop</button>
+             </div>
+         </div>
+     </div>
+ </div>
+    <div id="addDayOff" class="collapse">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Dodaj dni wolne
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" data-bind="submit: addDayOff">
+                        <div class="form-group" data-bind="with: newDayOff">
+                            <div class="col-sm-10">
+                                <strong>Data: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="inputDate" data-bind="value:Date" /></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

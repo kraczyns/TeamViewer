@@ -18,5 +18,15 @@ namespace TeamViewer.Controllers
         {
             return View();
         }
+
+        public ActionResult Administrator()
+        {
+            return View();
+        }
+
+        public ActionResult Stats()
+        {
+            return View();
+        }
     }
 }

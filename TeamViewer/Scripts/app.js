@@ -12,7 +12,6 @@
     self.manager = ko.observable("");
 
     self.filteredEmployees = ko.computed(function () {
-        console.log('manager: ', self.manager());
         var filterSearch = self.query().toLowerCase();
         var filterManager = self.manager().toLowerCase();
         var filteredManager = self.employees();
@@ -27,15 +26,11 @@
             return self.employees();
         } else if (filterManager && !filterSearch) {
             return ko.utils.arrayFilter(filteredSearch, function (item) {
-                console.log('managerId: ', item.ManagerId);
-                console.log('manager: ', filterManager);
                 filteredManager = item.Manager.Name.toLowerCase().indexOf(filterManager) !== -1;
                 return filteredManager;
             });
         } else if (filterManager && filterSearch) {
             return ko.utils.arrayFilter(self.employees(), function (item) {
-                console.log('managerId: ', item.ManagerId);
-                console.log('manager: ', filterManager);
                 return item.Manager.Name.toLowerCase().indexOf(filterManager) !== -1 && item.Name.toLowerCase().indexOf(filterSearch) !== -1;
             });
         }
@@ -67,16 +62,80 @@
         quality : ko.observable()
     }
 
+    self.updatedEmployee = {
+        Id: ko.observable(),
+        Name: ko.observable(),
+        Points: ko.observable(),
+        Manager: ko.observable()
+    }
+
+    self.newDayOff = {
+        Date: ko.observable(),
+        EmployeeId: ko.observable()
+    }
+
+    self.addDayOff = function () {
+        console.log('Adding day off');
+        var dayOff = {
+            Date: self.newDayOff.Date(),
+            EmployeeId: self.detail().Id
+        }
+        ajaxHelper(daysUri, 'POST', dayOff);
+    }
+
+    self.newEmployee = {
+        Id: ko.observable(),
+        Manager: ko.observable(),
+        Name: ko.observable()
+    }
+
+    self.newManager = {
+        Id: ko.observable(),
+        Name: ko.observable()
+    }
+
+    self.addEmployee = function () {
+        console.log('Adding employee');
+        var employee = {
+            ManagerId: self.newEmployee.Manager().Id,
+            Name: self.newEmployee.Name()
+        }
+        ajaxHelper(employeesUri, 'POST', employee);
+    }
+
+    self.addManager = function () {
+        console.log('Adding manager');
+        var manager = {
+            Name: self.newManager.Name()
+        }
+        ajaxHelper(managersUri, 'POST', manager);
+    }
+
     self.addPoints = function (item) {
+        console.log('Adding points');
         var sum = parseInt(self.employee.time) + parseInt(self.employee.team) + parseInt(self.employee.quality) + parseInt(item.Points);
         var employee = {
             Id: item.Id,
-            Name: item.Name,
-            Points: self.employee.time,
-            ManagerId: item.ManagerId
+            Name: self.updatedEmployee.Name,
+            Points: item.Points,
+            ManagerId: self.updatedEmployee.Manager.Id
         };
 
         ajaxHelper(employeesUri + '/' + item.Id, 'PUT', employee).done(function (data) {
+            self.detail(data);
+        });
+    }
+
+    self.updateEmployee = function () {
+        console.log('Updating employee');
+        var employee = {
+            Id: self.detail().Id,
+            Name: self.updatedEmployee.Name(),
+            Points: self.detail().Points,
+            ManagerId: self.updatedEmployee.Manager().Id
+        };
+       
+        ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done(function (data) {
             self.detail(data);
         });
     }

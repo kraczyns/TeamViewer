@@ -100,7 +100,7 @@ namespace TeamViewer.Controllers
 
             return Ok(employee);
         }
-/*
+
         // POST: api/Employees
         [ResponseType(typeof(Employee))]
         public async Task<IHttpActionResult> PostEmployee(Employee employee)
@@ -113,17 +113,9 @@ namespace TeamViewer.Controllers
             db.Employees.Add(employee);
             await db.SaveChangesAsync();
 
-            db.Entry(employee).Reference(x => x.Manager).Load();
-
-            var dto = new EmployeeDTO()
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                ManagerName = employee.Name
-            };
-            return CreatedAtRoute("DefaultApi", new { id = employee.Id }, dto);
+            return CreatedAtRoute("DefaultApi", new { id = employee.Id }, employee);
         }
-
+/*
         // DELETE: api/Employees/5
         [ResponseType(typeof(Employee))]
         public async Task<IHttpActionResult> DeleteEmployee(int id)

@@ -308,6 +308,7 @@
     <Content Include="Views\EmployeesView\List.cshtml" />
     <Content Include="Views\EmployeesView\Points.cshtml" />
     <Content Include="Views\TasksView\List.cshtml" />
+    <Content Include="Views\EmployeesView\Administrator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705091542427_Initial.resx">
