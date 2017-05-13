@@ -19,7 +19,7 @@
                     <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
                 </div>
                    <div class="searchManagerForm">
-                    <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: manager" autocomplete="off" />
+                    <input placeholder="Sortuj po managerze..." type="search" class="form-control" data-bind="textInput: manager" autocomplete="off" />
                 </div>
                 <br>
                 <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
@@ -32,7 +32,6 @@
         </div>
         </div>
         <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
-    </div>
 
     <!-- ko if:detail() -->
     <div class="col-md-4">
@@ -41,7 +40,7 @@
                 <span class="glyphicon glyphicon-bookmark"></span> Charakterystyka pracownika
             </div>
             <table class="table">
-                <tr><td>Wybrany pracownik: </td><td data-bind="text: detail().Name"></td></tr>
+                <tr><td>Wybrany pracownik: </td><td data-bind="text: detail().Name"></td><td></td></tr>
                 <tr>
                     <td>Przynależność do zespołu: </td>
                     <td>
@@ -53,25 +52,79 @@
                         </ul>
 
                     </td>
+                    <td></td>
                 </tr>
-                <tr><td>Punkty: </td><td data-bind="text: detail().Points"></td></tr>
-                <tr><td>Liczba ukonczonych zadan: </td><td> liczba </td></tr>
+                <tr><td>Liczba ukonczonych zadan: </td><td> liczba </td><td></td></tr>
+                <tr><td>Punkty: </td><td data-bind="text: detail().Points"></td>
+                    <td><button class="btn btn-success" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-gift"></span></button></td>
+                </tr>
             </table>
+                <button class="btn btn-success btn-lg btn-block">Edycja<span class="glyphicon glyphicon-pencil"></span></button>
         </div>
-    </div> <!-- k cm4 od charakterystyka-->
+    </div> 
+    <div id="demo" class="collapse">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading h4">
+                    Statystyki i punkty &nbsp;
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                </div>
+                <div class="panel-body">
+                    <form class="pointsAssingment">
+                        <div class="form-group" data-bind="with: employee">
+                            <label for="inputTime">Czas wykonania zadania:</label>
+                            <input type="number" class="form-control" id="inputTime" min="0" max="5" placeholder="0" data-bind="value:time">
+                        </div>
+                        <div class="form-group" data-bind="with: employee">
+                            <label for="inputTeam">Praca w zespole:</label>
+                            <input type="number" class="form-control" id="inputTeam" min="0" max="5" placeholder="0" data-bind="value:team">
+                        </div>
+                        <div class="form-group" data-bind="with: employee">
+                            <label for="inputQuality">Jakość pracy:</label>
+                            <input type="number" class="form-control" id="inputQuality" min="0" max="5" placeholder="0" data-bind="value:quality">
+                        </div>
+                        <button class="btn btn-success btn-lg btn-block" data-bind="click: $root.addPoints(detail())">Przydziel punkty</button>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
     <div class="col-md-4">
         <div class="panel panel-success">
             <div class="panel-heading h4">
-                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="glyphicon glyphicon-tasks"></span>
                 Zadania w toku &nbsp;
             </div>
             <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: tasks">
-                    <li>
-                        <span data-bind="text: Id"></span>
-                    </li>
-                </ul>
+                <div class="tasks" data-bind="foreach: tasks">
+                 <div class="well">
+                     <div>
+                         <strong>Data rozpoczęcia: </strong>
+                         <span data-bind="text: moment(StartDate).format('L')"></span>
+                     </div>
+                     <div>
+                         <strong>Data zakończenia: </strong>
+                         <span data-bind="text: moment(EndDate).format('L')"></span>
+                     </div>
+                     <div>
+                         <strong>Opis: </strong>
+                         <span data-bind="text: Description"></span>
+                     </div>
+                     <div>
+                         <strong>Punkty: </strong>
+                         <span data-bind="text: Points "></span>
+                     </div>
+                     <div align="right">
+                         <button class="btn btn-success">Edycja<span class="glyphicon glyphicon-pencil"></span></button>
+                     </div>
+                 </div>
             </div>
+                <button class="btn btn-success btn-lg btn-block">Dodaj zadanie</button>
+        </div>
         </div>
     </div>
     <div class="col-md-4">
@@ -83,9 +136,10 @@
             <div class="panel-body">
                 <ul class="list-unstyled" data-bind="foreach: daysOff">
                     <li>
-                        <span data-bind="text: Date"></span>
+                        <span data-bind="text: moment(Date).format('L')"></span>
                     </li>
                 </ul>
+                <button class="btn btn-success btn-lg btn-block">Dodaj urlop</button>
             </div>
         </div>
     </div>

@@ -159,7 +159,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Managers\" />
-    <Folder Include="Views\Tasks\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -196,6 +195,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DayOffsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\TasksViewController.cs" />
     <Compile Include="Controllers\EmployeesViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201705111437194_taskaddeddb.cs" />
     <Compile Include="Migrations\201705111437194_taskaddeddb.Designer.cs">
       <DependentUpon>201705111437194_taskaddeddb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705131428004_tasktableupdate.cs" />
+    <Compile Include="Migrations\201705131428004_tasktableupdate.Designer.cs">
+      <DependentUpon>201705131428004_tasktableupdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DayOff.cs" />
@@ -281,6 +285,9 @@
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -300,6 +307,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\EmployeesView\List.cshtml" />
     <Content Include="Views\EmployeesView\Points.cshtml" />
+    <Content Include="Views\TasksView\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705091542427_Initial.resx">
@@ -325,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705111437194_taskaddeddb.resx">
       <DependentUpon>201705111437194_taskaddeddb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705131428004_tasktableupdate.resx">
+      <DependentUpon>201705131428004_tasktableupdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

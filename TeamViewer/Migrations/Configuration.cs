@@ -20,9 +20,24 @@ namespace TeamViewer.Migrations
                 new DayOff() { Id = 2, Date = new DateTime(2017, 5, 29), EmployeeId = 1 }
                 );
             context.Tasks.AddOrUpdate(t => t.Id,
-                new Task() { Id = 1, EmployeeId = 1 },
-                new Task() { Id = 2, EmployeeId = 1 }
-                );
+                new Task()
+                {
+                    Id = 1,
+                    EmployeeId = 1,
+                    StartDate = new DateTime(2017, 5, 3),
+                    EndDate = new DateTime(2017, 5, 29),
+                    Description = "swierszczyk",
+                    Points = 99
+                                },
+                new Task()
+                {
+                    Id = 2,
+                    EmployeeId = 1,
+                    StartDate = new DateTime(2017, 1, 3),
+                    EndDate = new DateTime(2017, 6, 29),
+                    Description = "ala ma kota",
+                    Points = 13
+                                });
             context.Managers.AddOrUpdate(m => m.Id,
                 new Manager() { Id = 1, Name = "Manager1" },
                 new Manager() { Id = 2, Name = "Manager2" }
