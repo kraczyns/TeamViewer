@@ -65,7 +65,7 @@ namespace TeamViewer.Controllers
             return Ok(employees);
 
         }
-        /*
+
         // PUT: api/Employees/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEmployee(int id, Employee employee)
@@ -98,9 +98,9 @@ namespace TeamViewer.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(employee);
         }
-
+/*
         // POST: api/Employees
         [ResponseType(typeof(Employee))]
         public async Task<IHttpActionResult> PostEmployee(Employee employee)
@@ -139,7 +139,7 @@ namespace TeamViewer.Controllers
 
             return Ok(employee);
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -152,7 +152,7 @@ namespace TeamViewer.Controllers
         private bool EmployeeExists(int id)
         {
             return db.Employees.Count(e => e.Id == id) > 0;
-        }*/
+        }
     }
     
 }

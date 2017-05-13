@@ -299,6 +299,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\EmployeesView\List.cshtml" />
+    <Content Include="Views\EmployeesView\Points.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705091542427_Initial.resx">
