@@ -8,7 +8,7 @@ namespace TeamViewer.Controllers
 {
     public class TasksViewController : Controller
     {
-        // GET: EmployeesView
+        // GET: TasksView
         public ActionResult List()
         {
             return View();
