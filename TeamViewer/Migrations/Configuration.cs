@@ -27,8 +27,9 @@ namespace TeamViewer.Migrations
                     StartDate = new DateTime(2017, 5, 3),
                     EndDate = new DateTime(2017, 5, 29),
                     Description = "swierszczyk",
-                    Points = 99
-                                },
+                    Points = 99,
+                    Status = Statuses.Nowe
+                },
                 new Task()
                 {
                     Id = 2,
@@ -36,8 +37,9 @@ namespace TeamViewer.Migrations
                     StartDate = new DateTime(2017, 1, 3),
                     EndDate = new DateTime(2017, 6, 29),
                     Description = "ala ma kota",
-                    Points = 13
-                                });
+                    Points = 13,
+                    Status = Statuses.Zamkniete
+                });
             context.Managers.AddOrUpdate(m => m.Id,
                 new Manager() { Id = 1, Name = "Manager1" },
                 new Manager() { Id = 2, Name = "Manager2" }

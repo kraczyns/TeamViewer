@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201705131428004_tasktableupdate.Designer.cs">
       <DependentUpon>201705131428004_tasktableupdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705140912114_dodanie statusow do tabeli z zadaniami.cs" />
+    <Compile Include="Migrations\201705140912114_dodanie statusow do tabeli z zadaniami.Designer.cs">
+      <DependentUpon>201705140912114_dodanie statusow do tabeli z zadaniami.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DayOff.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -337,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705131428004_tasktableupdate.resx">
       <DependentUpon>201705131428004_tasktableupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705140912114_dodanie statusow do tabeli z zadaniami.resx">
+      <DependentUpon>201705140912114_dodanie statusow do tabeli z zadaniami.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
