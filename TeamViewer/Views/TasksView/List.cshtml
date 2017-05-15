@@ -5,89 +5,116 @@
 @{
     ViewBag.Title = "Zadania";
 }
-
-
-<h2>Lista zadań</h2>
-
-<div class="page-header">
-    <h1>Zadania</h1>
-</div>
-
+<h1></h1>
 <div class="row">
 
     <div class="col-md-4">
         <div class="panel panel-success">
-            <div class="panel-heading">
-                <label class="panel-title h4">Lista</label>
+            <div class="panel-heading h4"> <span class="glyphicon glyphicon-user"></span> Zadania </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka zadań  </label>
                 <div class="searchForm">
-                    <input placeholder="Szukaj zadania..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
+                    <input placeholder="Szukaj zadań..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista zadań</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredTasks">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getDetails"><span data-bind="text: Description"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button data-toggle="collapse" data-target="#addtask" class="btn btn-success btn-lg btn-block">Dodaj zadanie</button>
+    </div>
+    <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    
+    <!-- ko if:detail() --> 
+ 
+
+    <div class="col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading h4">
+                <span class="glyphicon glyphicon-tasks"></span>
+                Szczegóły zadania &nbsp;
+            </div>
+            <div class="panel-body">
+                <div class="tasks" data-bind="with: detail()">
+                    <div class="well">
+                        <div>
+                            <strong>Identyfikator zadania: </strong>
+                            <span data-bind="text: Id"></span>
+                        </div>
+                        <div>
+                            <strong>Data rozpoczęcia: </strong>
+                            <span data-bind="text: moment(StartDate).format('l')"></span>
+                        </div>
+                        <div>
+                            <strong>Data zakończenia: </strong>
+                            <span data-bind="text: moment(EndDate).format('l')"></span>
+                        </div>
+                        <div>
+                            <strong>Opis: </strong>
+                            <span data-bind="text: Description"></span>
+                        </div>
+                        <div>
+                            <strong>Punkty: </strong>
+                            <span data-bind="text: Points "></span>
+                        </div>
+                        <div>
+                            <strong>Status zadania: </strong>
+                            <span data-bind="text: Status "></span>
+                        </div>
+                        <div>
+                            <strong>Przypisane do: </strong>
+                            <span data-bind="text: EmployeeId "></span>
+                        </div>
+                        <div align="right">
+                            <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
-                    <li>
-                        <a href="#" data-bind="click: $parent.getDetails"><span data-bind="text: Name"></span></a>
-                    </li>
-                </ul>
-            </div>
         </div>
-        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
     </div>
 
-    <!-- ko if:detail() -->
+<div id="addtask" class="collapse">
     <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title" data-bind="text: detail().Name"></h2>
-            </div>
-            <table class="table">
-                <tr><td>Manager</td><td data-bind="text: detail().Manager.Name"></td></tr>
-                <tr><td>Points</td><td data-bind="text: detail().Points"></td></tr>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Zespół</h2>
+        <div class="panel panel-success">
+            <div class="panel-heading h4">
+                Dodaj nowe zadanie
             </div>
             <div class="panel-body">
-                <strong><span data-bind="text: detail().Manager.Name"></span></strong>
-                <ul class="list-unstyled" data-bind="foreach: teamEmployees">
-                    <li>
-                        <span data-bind="text: Name"></span>
-                    </li>
-                </ul>
+                <form class="form-horizontal" data-bind="submit: addTask">
+
+                    <div class="form-group" data-bind="with: newTask">
+
+                        <div class="col-sm-10">
+                            <strong>Opis: </strong>
+                            <span><textarea class="form-control" id="Description" data-bind="value:Description"></textarea></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value:StartDate" /></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value:EndDate" /></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <strong>Przypisz do: </strong>
+                            <span><input type="text" class="form-control" id="EmployeeId" data-bind="value:EmployeeId"></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <strong>Punkty: </strong>
+                            <span><input type="text" class="form-control" id="Points" data-bind="value:Points"></span>
+                        </div>
+                    </div>
+                    <button data-bind="click: $root.addTask" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                </form>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Zadania</h2>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: tasks">
-                    <li>
-                        <span data-bind="text: Id"></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Opis</h2>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: tasks">
-                    <li>
-                        <span data-bind="text: Description"></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+</div>
+    
     <!-- /ko -->
+    
 </div>

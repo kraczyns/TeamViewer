@@ -5,6 +5,14 @@ using System.Web;
 
 namespace TeamViewer.Models
 {
+    public enum Statuses
+    {
+        Nowe,
+        DoZrobienia,
+        Wtrakcie,
+        Zrobione,
+        Zamkniete
+    };
     public class Task
     {
         public int Id { get; set; }
@@ -14,6 +22,7 @@ namespace TeamViewer.Models
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public int Points { get; set; }
+        public Statuses Status { get; set; }
 
         public Manager Manager { get; set; }
         public Employee Employee { get; set; }

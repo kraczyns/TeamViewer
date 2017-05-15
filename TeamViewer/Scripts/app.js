@@ -47,7 +47,20 @@
             });
         }
     });
-    self.getCurrentEmployees = function () {
+    self.filteredTasks = ko.computed(function () {
+        var filterSearch = self.query().toLowerCase();
+        var filteredSearch = self._tasks();
+
+        if (filterSearch) {
+            return ko.utils.arrayFilter(filteredSearch, function (item) {
+                filteredSearch = item.Description.toLowerCase().indexOf(filterSearch) !== -1;
+                return filteredSearch;
+            });
+        }
+
+        return filteredSearch;
+    });
+    self.getCurrentEmployees = function() {
         var selectedVal = self.manager();
 
         if (!selectedVal)
@@ -79,35 +92,30 @@
         time : ko.observable(),
         team : ko.observable(),
         quality : ko.observable()
-    }
-
+    };
     self.updatedEmployee = {
         Id: ko.observable(),
         Name: ko.observable(),
         Points: ko.observable(),
         Manager: ko.observable()
-    }
-
+    };
     self.newDayOff = {
         Date: ko.observable(),
         EmployeeId: ko.observable()
-    }
-
+    };
     self.addDayOff = function () {
         console.log('Adding day off');
         var dayOff = {
             Date: self.newDayOff.Date(),
             EmployeeId: self.detail().Id
-        }
+        };
         ajaxHelper(daysUri, 'POST', dayOff);
-    }
-
+    };
     self.newEmployee = {
         Id: ko.observable(),
         Manager: ko.observable(),
         Name: ko.observable()
-    }
-
+    };
     self.newManager = {
         Id: ko.observable(),
         Name: ko.observable()
@@ -127,18 +135,16 @@
         var employee = {
             ManagerId: self.newEmployee.Manager().Id,
             Name: self.newEmployee.Name()
-        }
+        };
         ajaxHelper(employeesUri, 'POST', employee);
-    }
-
+    };
     self.addManager = function () {
         console.log('Adding manager');
         var manager = {
             Name: self.newManager.Name()
-        }
+        };
         ajaxHelper(managersUri, 'POST', manager);
-    }
-
+    };
     self.addPoints = function (item) {
         console.log('Adding points');
         var sum = parseInt(self.employee.time) + parseInt(self.employee.team) + parseInt(self.employee.quality) + parseInt(item.Points);
@@ -152,8 +158,7 @@
         ajaxHelper(employeesUri + '/' + item.Id, 'PUT', employee).done(function (data) {
             self.detail(data);
         });
-    }
-
+    };
     self.updateEmployee = function () {
         console.log('Updating employee');
         var employee = {
@@ -166,8 +171,7 @@
         ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done(function (data) {
             self.detail(data);
         });
-    }
-
+    };
     self.getEmployee = function (item) {
         console.log('Getting employee');
         ajaxHelper(employeesUri + '/' + item.Id, 'GET').done(function (data) {
@@ -186,28 +190,25 @@
             ajaxHelper(employeesUri + '?ManagerId=' + item.ManagerId, 'GET').done(function (data) {
             self.teamEmployees(data);
             self.detail(item);
-        })
-    }
-    
+        });
+    };
     self.getDaysOff = function (item) {
         ajaxHelper(daysUri + '?EmployeeId=' + item.Id, 'GET').done(function (data) {
             self.daysOff(data);
             self.detail(item);
-        })
-    }
-
+        });
+    };
     self.getTasks = function (item) {
         ajaxHelper(tasksUri + '?EmployeeId=' + item.Id, 'GET').done(function (data) {
             self.tasks(data);
             self.detail(item);
-        })
-    }
-
+        });
+    };
     self.getDetails = function (item) {
         self.getDaysOff(item);
         self.getTeam(item);
-        self.getTasks(item)
-    }
+        self.getTasks(item);
+    };
 
     function ajaxHelper(uri, method, data) {
         self.error(''); // Clear error message
@@ -243,6 +244,24 @@
             self._days(data);
         });
     }
+    self.newTask = {
+        EmployeeId: ko.observable(),
+        StartDate: ko.observable(),
+        EndDate: ko.observable(),
+        Description: ko.observable(),
+        Points: ko.observable(),
+    };
+    self.addTask = function () {
+        console.log('Adding task');
+        var task = {
+            EmployeeId: self.newTask.EmployeeId,
+            StartDate: self.newTask.StartDate,
+            EndDate: self.newTask.EndDate,
+            Description: self.newTask.Description,
+            Points: self.newTask.Points
+        };
+        ajaxHelper(tasksUri, 'POST', task);
+    };
     // Fetch the initial data.
     getAllEmployees();
     getAllDaysOff();
