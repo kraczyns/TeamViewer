@@ -75,4 +75,88 @@
     </div>
 </div> 
 
+<div class="collapse" id="editEmployee">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Edytuj pracownika
+            </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka pracowników  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getEmployee"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <!-- ko if:detail() -->
+                        <div class="col-sm-10">
+                            <strong>Wybrany pracownik: </strong><span data-bind="text: detail().Name"></span>
+                            <br />
+                        </div>
+                            <!-- /ko -->
+                            <div class="col-sm-10">
+                                <strong>Manager: </strong>
+                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
+                            </div>
+                        </div>
+
+                    <div class="form-group" data-bind="with: updatedEmployee">
+                        <div class="col-sm-10">
+                            <strong>Imię Nazwisko: </strong>
+                            <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                        </div>
+                    </div>
+                    <button data-bind="click: $root.updateEmployee" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collapse" id="editManager">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Edytuj managera
+            </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka managerów  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: name" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista managerów</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredManagers">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getManager"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+                <form class="form-horizontal">
+                    <!-- ko if:detailMan() -->
+                    <div class="col-sm-10">
+                            <strong>Wybrany manager: </strong><span data-bind="text: detailMan().Name"></span>
+                            <br />
+                    </div>
+                    <!-- /ko -->
+                    <div class="form-group" data-bind="with: updatedManager">
+                        <div class="col-sm-10">
+                            <strong>Imię Nazwisko: </strong>
+                            <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                        </div>
+                    </div>
+                    <button data-bind="click: $root.updateManager" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

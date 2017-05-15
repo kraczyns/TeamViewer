@@ -9,8 +9,20 @@
     self._days = ko.observableArray();
     self.error = ko.observable();
     self.query = ko.observable("");
+    self.name = ko.observable("");
     self.manager = ko.observable("");
 
+    self.filteredManagers = ko.computed(function () {
+        console.log('filteredManager');
+        var filter = self.name().toLowerCase();
+        if (!filter) {
+            return self.managers();
+        } else {
+            return ko.utils.arrayFilter(self.managers(), function (item) {
+                return item.Name.toLowerCase().indexOf(filter) !== -1;
+            });
+         }
+    });
     self.filteredEmployees = ko.computed(function () {
         var filterSearch = self.query().toLowerCase();
         var filterManager = self.manager().toLowerCase();
@@ -35,7 +47,7 @@
             });
         }
     });
-    self.getCurrentEmployees = function() {
+    self.getCurrentEmployees = function () {
         var selectedVal = self.manager();
 
         if (!selectedVal)
@@ -45,12 +57,19 @@
             return f.ManagerId === selectedVal.ManagerId;
         });
     };
+
     var employeesUri = '/api/employees';
     var daysUri = '/api/dayoffs';
     var tasksUri = '/api/tasks';
     var managersUri = '/api/managers';
 
     self.detail = ko.observable();
+    self.detailMan = ko.observable();
+
+    self.updatedManager = {
+        Id: ko.observable(),
+        Name: ko.observable()
+    }
 
     self.employee = {
         Id: ko.observable(), 
@@ -92,6 +111,15 @@
     self.newManager = {
         Id: ko.observable(),
         Name: ko.observable()
+    }
+
+    self.updateManager = function () {
+        console.log('Updating manager');
+        var manager = {
+            Id: self.detailMan().Id,
+            Name: updatedManager.Name()
+        }
+        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'PUT', manager);
     }
 
     self.addEmployee = function () {
@@ -141,9 +169,17 @@
     }
 
     self.getEmployee = function (item) {
+        console.log('Getting employee');
         ajaxHelper(employeesUri + '/' + item.Id, 'GET').done(function (data) {
             self.detail(data);
         });
+    }
+
+    self.getManager = function (item) {
+        console.log('Getting manager');
+        ajaxHelper(managersUri + '/' + item.Id, 'GET').done(function (data) {
+            self.detailMan(data);
+        })
     }
    
     self.getTeam = function (item) {

@@ -15,6 +15,8 @@ C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\TeamViewer.dll.co
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\TeamViewer.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\TeamViewer.pdb
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Antlr3.Runtime.dll
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.dll
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.SqlServer.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -36,6 +38,8 @@ C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\System.Web.WebPag
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\System.Web.WebPages.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\System.Web.WebPages.Razor.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\WebGrease.dll
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.xml
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.SqlServer.xml
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Microsoft.AI.Web.xml
@@ -54,14 +58,7 @@ C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\System.Web.WebPag
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\System.Web.WebPages.Deployment.xml
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\System.Web.WebPages.Razor.xml
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\Antlr3.Runtime.pdb
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.dll
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.pdb
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.dll
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.SqlServer.dll
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.xml
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\bin\EntityFramework.SqlServer.xml
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.Initial.resources
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csproj.GenerateResource.Cache
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.Initialwithcorrection.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.change1.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.migracja.resources
@@ -69,5 +66,7 @@ C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.points.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.taskadded.resources
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.taskaddeddb.resources
-C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csprojResolveAssemblyReference.cache
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.tasktableupdate.resources
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csproj.GenerateResource.Cache
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.dll
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.pdb
