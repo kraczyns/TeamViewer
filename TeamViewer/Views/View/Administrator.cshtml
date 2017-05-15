@@ -1,0 +1,229 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+@{
+    ViewBag.Title = "Administrator";
+}
+<h1></h1>
+
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading h4">
+            Administracja
+        </div>
+        <div class="panel-body">
+                <div class="btn btn-success btn-lg btn-block" data-toggle="collapse" data-target="#addEmployee"> Dodaj pracownika </div>
+            <br />
+                <div class="btn btn-success btn-lg btn-block" data-toggle="collapse" data-target="#addManager"> Dodaj managera </div>
+            <br />
+                <div class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target="#editEmployee"> Edytuj pracownika </div>
+            <br />
+                <div class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target="#editManager"> Edytuj managera </div>
+            <br />
+                <div class="btn btn-danger btn-lg btn-block" data-toggle="collapse" data-target="#deleteEmployee"> Usuń pracownika </div>
+            <br />
+                <div class="btn btn-danger btn-lg btn-block" data-toggle="collapse" data-target="#deleteManager"> Usuń managera </div>
+            <br />
+        </div>
+        </div>
+    </div>
+<div class="collapse" id="addEmployee">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Dodaj pracownika
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: addEmployee">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                           <strong>Manager: </strong><span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: newEmployee.Manager"></select></span>
+                        </div>
+                    </div>
+                    <div class="form-group" data-bind="with: newEmployee">
+                        <div class="col-sm-10">
+                            <strong>Imię Nazwisko: </strong><span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+</div>
+                    </div>
+                    <button type="submit" align="center" class="btn btn-success btn-lg btn-block">Dodaj</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            
+<div  id="addManager" class="collapse">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Dodaj managera
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: addManager">
+                    <div class="form-group" data-bind="with: newManager">
+                        <div class="col-sm-10">
+                            <strong>Imię Nazwisko: </strong><span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                        </div>
+                    </div>
+                    <button type="submit" align="center" class="btn btn-success btn-lg btn-block">Dodaj</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="collapse" id="editEmployee">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Edytuj pracownika
+            </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka pracowników  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getEmployee"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+                <form class="form-horizontal">
+                    <!-- ko if:detail() -->
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <strong>Wybrany pracownik: </strong><span data-bind="text: detail().Name"></span>
+                            <br />
+                        </div>
+                            
+                            <div class="col-sm-10">
+                                <strong>Manager: </strong>
+                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
+                            </div>
+                        </div>
+
+                    <div class="form-group" data-bind="with: updatedEmployee">
+                        <div class="col-sm-10">
+                            <strong>Imię Nazwisko: </strong>
+                            <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                        </div>
+                    </div>
+                    <button data-bind="click: $root.updateEmployee" class="btn btn-primary btn-lg btn-block">Zapisz</button>
+                    <!-- /ko -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collapse" id="editManager">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Edytuj managera
+            </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka managerów  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: name" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista managerów</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredManagers">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getManager"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+                <form class="form-horizontal">
+                    <!-- ko if:detailMan() -->
+                    <div class="col-sm-10">
+                            <strong>Wybrany manager: </strong><span data-bind="text: detailMan().Name"></span>
+                            <br />
+                    </div>
+                    
+                    <div class="form-group" data-bind="with: updatedManager">
+                        <div class="col-sm-10">
+                            <strong>Imię Nazwisko: </strong>
+                            <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                        </div>
+                    </div>
+                    <button data-bind="click: $root.updateManager" class="btn btn-primary btn-lg btn-block">Zapisz</button>
+                    <!-- /ko -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collapse" id="deleteEmployee">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Usuń pracownika
+            </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka pracowników  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getEmployee"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+                <form class="form-horizontal">
+                    <!-- ko if:detail() -->
+                    <div class="col-sm-10">
+                        <strong>Wybrany pracownik: </strong><span data-bind="text: detail().Name"></span>
+                        <br />
+                    </div>
+                    <button data-bind="click: $root.deleteEmployee" class="btn btn-danger btn-lg btn-block">Usuń</button>
+                    <!-- /ko -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collapse" id="deleteManager">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Usuń managera
+            </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka managerów  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: name" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista managerów</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredManagers">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getManager"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+                <form class="form-horizontal">
+                    <!-- ko if:detailMan() -->
+                    <div class="col-sm-10">
+                        <strong>Wybrany manager: </strong><span data-bind="text: detailMan().Name"></span>
+                        <br />
+                    </div>
+                    <button data-bind="click: $root.deleteManager" class="btn btn-danger btn-lg btn-block">Usuń</button>
+                    <!-- /ko -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -37,10 +37,24 @@ namespace TeamViewer.Controllers
         }
 
         [ResponseType(typeof(Models.Task))]
-        public async Task<IHttpActionResult> GetTasks(int employeeId)
+        public async Task<IHttpActionResult> GetInProgressTasks(int employeeId)
         {
-            var tasks = await db.Tasks.Include(e => e.Employee)
-                .Where(e => e.EmployeeId == employeeId).ToArrayAsync();
+            var tasks = await db.Tasks.Include(e => e.Employee).Include(e => e.Manager)
+                .Where(e => e.EmployeeId == employeeId).Where(e => e.Status != Statuses.Zrobione).Where(e => e.Status != Statuses.Zamkniete).ToArrayAsync();
+
+            if (tasks == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tasks);
+        }
+
+        [ResponseType(typeof(Models.Task))]
+        public async Task<IHttpActionResult> GetInProgressManagerTasks(int managerId)
+        {
+            var tasks = await db.Tasks.Include(e => e.Manager).Include(e => e.Employee)
+                .Where(e => e.ManagerId == managerId).Where(e => e.Status != Statuses.Zrobione).Where(e => e.Status != Statuses.Zamkniete).ToArrayAsync();
 
             if (tasks == null)
             {

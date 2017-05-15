@@ -196,7 +196,7 @@
     <Compile Include="Controllers\DayOffsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\TasksViewController.cs" />
-    <Compile Include="Controllers\EmployeesViewController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -242,6 +242,18 @@
     <Compile Include="Migrations\201705140912114_dodanie statusow do tabeli z zadaniami.cs" />
     <Compile Include="Migrations\201705140912114_dodanie statusow do tabeli z zadaniami.Designer.cs">
       <DependentUpon>201705140912114_dodanie statusow do tabeli z zadaniami.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705151257294_dayoffformanager.cs" />
+    <Compile Include="Migrations\201705151257294_dayoffformanager.Designer.cs">
+      <DependentUpon>201705151257294_dayoffformanager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705151311106_manager-boolean.cs" />
+    <Compile Include="Migrations\201705151311106_manager-boolean.Designer.cs">
+      <DependentUpon>201705151311106_manager-boolean.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705151332414_daysoff.cs" />
+    <Compile Include="Migrations\201705151332414_daysoff.Designer.cs">
+      <DependentUpon>201705151332414_daysoff.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DayOff.cs" />
@@ -309,10 +321,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\EmployeesView\List.cshtml" />
-    <Content Include="Views\EmployeesView\Points.cshtml" />
+    <Content Include="Views\View\EmployeeList.cshtml" />
     <Content Include="Views\TasksView\List.cshtml" />
-    <Content Include="Views\EmployeesView\Administrator.cshtml" />
+    <Content Include="Views\View\Administrator.cshtml" />
+    <Content Include="Views\View\ManagerList.cshtml" />
+    <Content Include="Views\View\TaskList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705091542427_Initial.resx">
@@ -344,6 +357,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705140912114_dodanie statusow do tabeli z zadaniami.resx">
       <DependentUpon>201705140912114_dodanie statusow do tabeli z zadaniami.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705151257294_dayoffformanager.resx">
+      <DependentUpon>201705151257294_dayoffformanager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705151311106_manager-boolean.resx">
+      <DependentUpon>201705151311106_manager-boolean.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705151332414_daysoff.resx">
+      <DependentUpon>201705151332414_daysoff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

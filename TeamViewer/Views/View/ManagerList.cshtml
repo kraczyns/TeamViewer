@@ -1,0 +1,163 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+@{
+    ViewBag.Title = "Managerowie";
+}
+<h1></h1>
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading h4"> <span class="glyphicon glyphicon-user"></span> Managerowie </div>
+            <div class="panel-body">
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka managerów  </label>
+                <div class="searchForm">
+                    <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: name" autocomplete="off" />
+                </div>
+                <br>
+                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista managerów</label>
+                <ul class="list-unstyled" data-bind="foreach: filteredManagers">
+                    <li>
+                        <a href="#" data-bind="click: $parent.getManagerDetails"><span data-bind="text: Name"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+
+    <!-- ko if:detailMan() -->
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading h4">
+                <span class="glyphicon glyphicon-bookmark"></span> Charakterystyka managera
+            </div>
+            <table class="table">
+                <tr><td>Wybrany manager: </td><td data-bind="text: detailMan().Name"></td></tr>
+                <tr>
+                    <td>Zespół: </td>
+                    <td>
+                        <strong><span data-bind="text: detailMan().Name"></span></strong>
+                        <ul class="list-unstyled" data-bind="foreach: teamEmployees">
+                            <li>
+                                <span data-bind="text: Name"></span>
+                            </li>
+                        </ul>
+
+                    </td>
+                </tr>
+                <tr>
+                    <Td>
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#tasks"><span class="glyphicon glyphicon-tasks"></span></button>
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#daysoff"><span class="glyphicon glyphicon-calendar"></span></button>
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#updateManager"><span class="glyphicon glyphicon-pencil"></span></button>
+                    </Td>
+                    <td></td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+    <div id="updateManager" class="collapse">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading h4">
+                    Edycja managera
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group" data-bind="with: updatedManager">
+                            <div class="col-sm-10">
+                                <strong>Imię Nazwisko: </strong>
+                                <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
+                            </div>
+                        </div>
+                        <button data-bind="click: $root.updateManager" class="btn btn-primary btn-lg btn-block">Zapisz</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="tasks">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-tasks"></span>
+                    Zadania w toku &nbsp;
+                </div>
+                <div class="panel-body">
+                    <div class="tasks" data-bind="foreach: tasks">
+                        <div class="well">
+                            <div>
+                                <strong>Pracownik: </strong>
+                                <span data-bind="text: Employee.Name"></span>
+                            </div>
+                            <div>
+                                <strong>Data rozpoczęcia: </strong>
+                                <span data-bind="text: moment(StartDate).format('l')"></span>
+                            </div>
+                            <div>
+                                <strong>Data zakończenia: </strong>
+                                <span data-bind="text: moment(EndDate).format('l')"></span>
+                            </div>
+                            <div>
+                                <strong>Opis: </strong>
+                                <span data-bind="text: Description"></span>
+                            </div>
+                            <div>
+                                <strong>Punkty: </strong>
+                                <span data-bind="text: Points "></span>
+                            </div>
+                            <div align="right">
+                                <button class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block">Dodaj zadanie</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="daysoff">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Urlop
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled" data-bind="foreach: daysOff">
+                        <li>
+                            <span data-bind="text: moment(Date).format('l')"></span>
+                        </li>
+                    </ul>
+                    <button data-toggle="collapse" data-target="#addDayOff" class="btn btn-primary btn-lg btn-block">Dodaj urlop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="addDayOff" class="collapse">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Dodaj dni wolne
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" data-bind="submit: addManagerDayOff">
+                        <div class="form-group" data-bind="with: newDayOff">
+                            <div class="col-sm-10">
+                                <strong>Data: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="inputDate" data-bind="value:Date" /></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Zapisz</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

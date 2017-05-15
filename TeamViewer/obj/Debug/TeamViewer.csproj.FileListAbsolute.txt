@@ -70,3 +70,8 @@ C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csproj.GenerateResource.Cache
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.dll
 C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.pdb
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csprojResolveAssemblyReference.cache
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.dodaniestatusowdotabelizzadaniami.resources
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.dayoffformanager.resources
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.managerboolean.resources
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.daysoff.resources

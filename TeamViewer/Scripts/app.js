@@ -21,7 +21,7 @@
             return ko.utils.arrayFilter(self.managers(), function (item) {
                 return item.Name.toLowerCase().indexOf(filter) !== -1;
             });
-         }
+        }
     });
     self.filteredEmployees = ko.computed(function () {
         var filterSearch = self.query().toLowerCase();
@@ -60,16 +60,6 @@
 
         return filteredSearch;
     });
-    self.getCurrentEmployees = function() {
-        var selectedVal = self.manager();
-
-        if (!selectedVal)
-            return self.employees;
-
-        return self.employees().filter(function (f) {
-            return f.ManagerId === selectedVal.ManagerId;
-        });
-    };
 
     var employeesUri = '/api/employees';
     var daysUri = '/api/dayoffs';
@@ -82,7 +72,7 @@
     self.updatedManager = {
         Id: ko.observable(),
         Name: ko.observable()
-    }
+    };
 
     self.employee = {
         Id: ko.observable(), 
@@ -107,7 +97,17 @@
         console.log('Adding day off');
         var dayOff = {
             Date: self.newDayOff.Date(),
-            EmployeeId: self.detail().Id
+            EmployeeId: self.detail().Id,
+            isManager: false
+        };
+        ajaxHelper(daysUri, 'POST', dayOff);
+    };
+    self.addManagerDayOff = function () {
+        console.log('Adding day off');
+        var dayOff = {
+            Date: self.newDayOff.Date(),
+            EmployeeId: self.detailMan().Id,
+            isManager: true
         };
         ajaxHelper(daysUri, 'POST', dayOff);
     };
@@ -125,7 +125,7 @@
         console.log('Updating manager');
         var manager = {
             Id: self.detailMan().Id,
-            Name: updatedManager.Name()
+            Name: self.updatedManager.Name()
         }
         ajaxHelper(managersUri + '/' + self.detailMan().Id, 'PUT', manager);
     }
@@ -145,6 +145,14 @@
         };
         ajaxHelper(managersUri, 'POST', manager);
     };
+    self.deleteEmployee = function () {
+        console.log('Usuwanie pracownika');
+        ajaxHelper(employeesUri + '/' + self.detail().Id, 'DELETE');
+    }
+    self.deleteManager = function () {
+        console.log('Usuwanie managera');
+        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'DELETE');
+    }
     self.addPoints = function (item) {
         console.log('Adding points');
         var sum = parseInt(self.employee.time) + parseInt(self.employee.team) + parseInt(self.employee.quality) + parseInt(item.Points);
@@ -187,18 +195,43 @@
     }
    
     self.getTeam = function (item) {
-            ajaxHelper(employeesUri + '?ManagerId=' + item.ManagerId, 'GET').done(function (data) {
+        ajaxHelper(employeesUri + '?ManagerId=' + item.ManagerId, 'GET').done(function (data) {
             self.teamEmployees(data);
             self.detail(item);
         });
     };
+    
+    self.getManagerTeam = function (item) {
+        ajaxHelper(employeesUri + '?ManagerId=' + item.Id, 'GET').done(function (data) {
+            self.teamEmployees(data);
+            self.detailMan(item);
+        });
+    };
+
     self.getDaysOff = function (item) {
         ajaxHelper(daysUri + '?EmployeeId=' + item.Id, 'GET').done(function (data) {
             self.daysOff(data);
             self.detail(item);
         });
     };
+
+    self.getManagerDaysOff = function (item) {
+        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=true', 'GET').done(function (data) {
+            self.daysOff(data);
+            self.detailMan(item);
+        });
+    };
+
+    self.getManagerTasks = function (item) {
+        console.log('Pobieranie zadań managera');
+        ajaxHelper(tasksUri + '?ManagerId=' + item.Id, 'GET').done(function (data) {
+            self.tasks(data);
+            self.detailMan(item);
+        });
+     };
+
     self.getTasks = function (item) {
+        console.log('Pobieranie zadań pracownika');
         ajaxHelper(tasksUri + '?EmployeeId=' + item.Id, 'GET').done(function (data) {
             self.tasks(data);
             self.detail(item);
@@ -208,6 +241,12 @@
         self.getDaysOff(item);
         self.getTeam(item);
         self.getTasks(item);
+    };
+
+    self.getManagerDetails = function (item) {
+        self.getManagerDaysOff(item);
+        self.getManagerTeam(item);
+        self.getManagerTasks(item);
     };
 
     function ajaxHelper(uri, method, data) {

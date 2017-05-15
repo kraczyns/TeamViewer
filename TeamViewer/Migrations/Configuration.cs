@@ -16,14 +16,15 @@ namespace TeamViewer.Migrations
         protected override void Seed(TeamViewer.Models.TeamViewerContext context)
         {
             context.DayOffs.AddOrUpdate(d => d.Id,
-                new DayOff() { Id = 1, Date = new DateTime(2017,5,28), EmployeeId = 1 },
-                new DayOff() { Id = 2, Date = new DateTime(2017, 5, 29), EmployeeId = 1 }
+                new DayOff() { Id = 1, Date = new DateTime(2017,5,28), EmployeeId = 1, isManager = false },
+                new DayOff() { Id = 2, Date = new DateTime(2017, 5, 29), EmployeeId = 1, isManager = false }
                 );
             context.Tasks.AddOrUpdate(t => t.Id,
                 new Task()
                 {
                     Id = 1,
                     EmployeeId = 1,
+                    ManagerId = 1,
                     StartDate = new DateTime(2017, 5, 3),
                     EndDate = new DateTime(2017, 5, 29),
                     Description = "swierszczyk",
@@ -34,6 +35,7 @@ namespace TeamViewer.Migrations
                 {
                     Id = 2,
                     EmployeeId = 1,
+                    ManagerId = 2,
                     StartDate = new DateTime(2017, 1, 3),
                     EndDate = new DateTime(2017, 6, 29),
                     Description = "ala ma kota",

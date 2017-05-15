@@ -10,7 +10,9 @@ namespace TeamViewer.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int EmployeeId { get; set; }
+        public Boolean isManager { get; set; }
 
         public Employee Employee { get; set; }
+        public Manager Manager { get; set; }
     }
 }
