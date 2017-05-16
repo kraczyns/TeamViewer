@@ -20,15 +20,14 @@ namespace TeamViewer.Controllers
         // GET: api/Tasks
         public IQueryable<Models.Task> GetTasks()
         {
-            db.Tasks.Include(e => e.Manager);
-            return db.Tasks.Include(e => e.Employee);
+            return db.Tasks.Include(e => e.Employee).Include(e => e.Manager);
         }
 
         // GET: api/Tasks/5
         [ResponseType(typeof(Models.Task))]
         public async Task<IHttpActionResult> GetTask(int id)
         {
-            Models.Task task = await db.Tasks.Include(e => e.Manager).
+            Models.Task task = await db.Tasks.Include(e => e.Employee).Include(e => e.Manager).
                 SingleOrDefaultAsync(e => e.Id == id);
 
             if (task == null)
