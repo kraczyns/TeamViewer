@@ -64,6 +64,24 @@ namespace TeamViewer.Controllers
             return Ok(tasks);
         }
 
+        [ResponseType(typeof(Models.Task))]
+        public async Task<IHttpActionResult> GetTasksByStatusAndManager(Statuses status, int managerId)
+        {
+            var tasks = await db.Tasks.Include(t => t.Manager).Include(t => t.Employee).
+                Where(t => t.ManagerId == managerId).Where(t => t.Status == status).ToArrayAsync();
+
+            return Ok(tasks);
+        }
+
+        [ResponseType(typeof(Models.Task))]
+        public async Task<IHttpActionResult> GetTasksByStatusAndEmployee(Statuses status, int employeeId)
+        {
+            var tasks = await db.Tasks.Include(t => t.Manager).Include(t => t.Employee).
+                Where(t => t.EmployeeId == employeeId).Where(t => t.Status == status).ToArrayAsync();
+
+            return Ok(tasks);
+        }
+
         // PUT: api/Tasks/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutTask(int id, Models.Task task)

@@ -256,6 +256,10 @@
     <Compile Include="Migrations\201705151332414_daysoff.Designer.cs">
       <DependentUpon>201705151332414_daysoff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705161253067_Initial1.cs" />
+    <Compile Include="Migrations\201705161253067_Initial1.Designer.cs">
+      <DependentUpon>201705161253067_Initial1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\DayOff.cs" />
@@ -328,6 +332,7 @@
     <Content Include="Views\View\Administrator.cshtml" />
     <Content Include="Views\View\ManagerList.cshtml" />
     <Content Include="Views\View\TaskList.cshtml" />
+    <Content Include="Views\View\Stats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705091542427_Initial.resx">
@@ -368,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705151332414_daysoff.resx">
       <DependentUpon>201705151332414_daysoff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705161253067_Initial1.resx">
+      <DependentUpon>201705161253067_Initial1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

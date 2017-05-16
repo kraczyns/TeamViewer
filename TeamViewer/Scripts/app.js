@@ -11,7 +11,7 @@
     self.query = ko.observable("");
     self.name = ko.observable("");
     self.manager = ko.observable("");
-
+    self.countDone = ko.observable("2");
     self.filteredManagers = ko.computed(function () {
         console.log('filteredManager');
         var filter = self.name().toLowerCase();
@@ -237,10 +237,21 @@
             self.detail(item);
         });
     };
+
+    self.getFinishedTasks = function (item) {
+        console.log('Pobieranie ukończonych zadań pracownika');
+        ajaxHelper(tasksUri + '?EmployeeId=' + item.Id + '&Status=Zamkniete', 'GET').done(function (data) {
+            self._tasks(data);
+            console.log('_tasks.length: ', _tasks.length);
+            self.countDone(_tasks.length);
+        });
+    };
+
     self.getDetails = function (item) {
         self.getDaysOff(item);
         self.getTeam(item);
         self.getTasks(item);
+        self.getFinishedTasks(item);
     };
 
     self.getManagerDetails = function (item) {
@@ -272,7 +283,6 @@
             self.managers(data);
         });
     }
-    
     function getAllTasks() {
         ajaxHelper(tasksUri, 'GET').done(function (data) {
             self._tasks(data);

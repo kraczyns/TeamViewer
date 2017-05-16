@@ -152,3 +152,4 @@ C:\Documents\Git\logowanie\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations
 C:\Documents\Git\logowanie\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csproj.GenerateResource.Cache
 C:\Documents\Git\logowanie\TeamViewer\TeamViewer\obj\Debug\TeamViewer.dll
 C:\Documents\Git\logowanie\TeamViewer\TeamViewer\obj\Debug\TeamViewer.pdb
+C:\Users\raczykar\Desktop\teamviewer\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.Initial1.resources
