@@ -20,14 +20,17 @@ namespace TeamViewer.Controllers
         // GET: api/Tasks
         public IQueryable<Models.Task> GetTasks()
         {
-            return db.Tasks;
+            db.Tasks.Include(e => e.Manager);
+            return db.Tasks.Include(e => e.Employee);
         }
 
         // GET: api/Tasks/5
         [ResponseType(typeof(Models.Task))]
         public async Task<IHttpActionResult> GetTask(int id)
         {
-            Models.Task task = await db.Tasks.FindAsync(id);
+            Models.Task task = await db.Tasks.Include(e => e.Manager).
+                SingleOrDefaultAsync(e => e.Id == id);
+
             if (task == null)
             {
                 return NotFound();
@@ -121,6 +124,11 @@ namespace TeamViewer.Controllers
         [ResponseType(typeof(Models.Task))]
         public async Task<IHttpActionResult> PostTask(Models.Task task)
         {
+            
+            Console.Write(task.Status.ToString());
+            Console.Write(task.StartDate.ToString());
+            Console.Write(task.EndDate.ToString());
+            Console.Write(task.Description);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

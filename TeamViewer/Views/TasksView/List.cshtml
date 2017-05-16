@@ -47,11 +47,11 @@
                         </div>
                         <div>
                             <strong>Data rozpoczęcia: </strong>
-                            <span data-bind="text: moment(StartDate).format('l')"></span>
+                            <span data-bind="text: moment(StartDate).format('lll')"></span>
                         </div>
                         <div>
                             <strong>Data zakończenia: </strong>
-                            <span data-bind="text: moment(EndDate).format('l')"></span>
+                            <span data-bind="text: moment(EndDate).format('lll')"></span>
                         </div>
                         <div>
                             <strong>Opis: </strong>
@@ -67,7 +67,7 @@
                         </div>
                         <div>
                             <strong>Przypisane do: </strong>
-                            <span data-bind="text: EmployeeId "></span>
+                            <span data-bind="text: Manager.Name "></span>
                         </div>
                         <div align="right">
                             <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -101,7 +101,11 @@
                         </div>
                         <div class="col-sm-10">
                             <strong>Przypisz do: </strong>
-                            <span><input type="text" class="form-control" id="EmployeeId" data-bind="value:EmployeeId"></span>
+                            <span><select class="form-control" id="EmployeeId" data-bind="options:employees, optionsText: 'Name', value: newTask.EmployeeId"></select></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <strong>Manager: </strong>
+                            <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
                         </div>
                         <div class="col-sm-10">
                             <strong>Punkty: </strong>
