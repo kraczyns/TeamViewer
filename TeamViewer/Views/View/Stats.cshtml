@@ -15,12 +15,10 @@
 
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(goForEach);
-     var numbers = [[1, 2, 3, 4, 5], [2, 2, 3, 4, 5], [3, 2, 3, 4, 4]];
+      var numbers = [[1, 2, 3, 4, 5], [2, 2, 3, 4, 5], [3, 2, 3, 4, 4]];
       function goForEach() {
-          console.log(numbers[0][0]);
-          console.log(numbers[0]);
           numbers.forEach(function (item) {
-                var data = new google.visualization.DataTable();
+              var data = new google.visualization.DataTable();
               data.addColumn('string', 'Topping');
               data.addColumn('number', 'Slices');
               data.addRows([
@@ -33,15 +31,14 @@
 
               // Set chart options
               var options = {
-                  'title': 'Zespół managera: '+ item[0],
-                  'width': 400,
-                  'height': 300
+                  'title': 'Zespół managera: ' + item[0]
               };
 
               var chart = new google.visualization.PieChart(document.getElementById(item[0]));
-              chart.draw(data, options); 
+              chart.draw(data, options);
           });
       }
+     
       
     </script>
 </head>

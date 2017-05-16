@@ -6,6 +6,7 @@
     self.daysOff = ko.observableArray();
     self.tasks = ko.observableArray();
     self._tasks = ko.observableArray();
+    self.finishedTasks = ko.observableArray();
     self._days = ko.observableArray();
     self.error = ko.observable();
     self.query = ko.observable("");
@@ -241,9 +242,9 @@
     self.getFinishedTasks = function (item) {
         console.log('Pobieranie ukończonych zadań pracownika');
         ajaxHelper(tasksUri + '?EmployeeId=' + item.Id + '&Status=Zamkniete', 'GET').done(function (data) {
-            self._tasks(data);
-            console.log('_tasks.length: ', _tasks.length);
-            self.countDone(_tasks.length);
+            self.finishedTasks(data);
+            console.log('finishedTasks.length: ', self.finishedTasks().length);
+            self.countDone(self.finishedTasks().length);
         });
     };
 
