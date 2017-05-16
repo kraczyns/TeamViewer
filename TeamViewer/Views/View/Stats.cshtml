@@ -55,6 +55,14 @@
         <div id="3">
         </div>
     </div>
+    <div data-bind="foreach: $root.getStatuses(managers())">
+        <strong data-bind="Name"></strong>
+        <strong>Nowe</strong><span data-bind="text : tasksStatuses[0]"></span>
+        <strong>Do zrobienia</strong><span data-bind="text : tasksStatuses[1]"></span>
+        <strong>W trakcie</strong><span data-bind="text : tasksStatuses[2]"></span>
+        <strong>Zrobione</strong><span data-bind="text : tasksStatuses[3]"></span>
+        <strong>Zamknięte</strong><span data-bind="text : tasksStatuses[4]"></span>
+    </div>
    
 </body>
 </html>
