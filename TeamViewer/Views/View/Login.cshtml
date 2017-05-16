@@ -1,0 +1,78 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+@{
+    ViewBag.Title = "Logowanie";
+}
+<h1></h1>
+
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading h4">
+            Logowanie
+        </div>
+        <div class="panel-body">
+                <div class="btn btn-success btn-lg btn-block" data-toggle="collapse" data-target="#login"> Logowanie </div>
+            <br />
+                <div class="btn btn-success btn-lg btn-block" data-toggle="collapse" data-target="#register"> Rejestracja </div>
+            <br />
+        </div>
+        </div>
+    </div>
+<div class="collapse" id="register">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Rejestracja
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: register">
+                    <div class="form-group" data-bind="with: newEmployee">
+                        <div class="col-sm-10">
+                            <strong>Login: </strong><span><input type="text" class="form-control" id="inputName" data-bind="value:username" /></span>
+                        </div>
+                    </div>
+                    <div class="form-group" data-bind="with: newEmployee">
+                        <div class="col-sm-10">
+                            <strong>Hasło: </strong><span><input type="text" class="form-control" id="inputName" data-bind="value:password" /></span>
+                        </div>
+                    </div>
+                  <!--  <div class="form-group">
+                        <div class="col-sm-10">
+                            <strong>Rola: </strong><span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: newEmployee.Manager"></select></span>
+                        </div>
+                    </div> -->
+                    <button type="submit" align="center" class="btn btn-success btn-lg btn-block">Rejestracja</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            
+<div class="collapse" id="login">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading h4">
+                Logowanie
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: login">
+                    <div class="form-group" data-bind="with: newEmployee">
+                        <div class="col-sm-10">
+                            <strong>Login: </strong><span><input type="text" class="form-control" id="inputName" data-bind="value:username" /></span>
+                        </div>
+                    </div>
+                    <div class="form-group" data-bind="with: newEmployee">
+                        <div class="col-sm-10">
+                            <strong>Hasło: </strong><span><input type="text" class="form-control" id="inputName" data-bind="value:password" /></span>
+                        </div>
+                    </div>
+                    <button type="submit" align="center" class="btn btn-success btn-lg btn-block">Rejestracja</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
