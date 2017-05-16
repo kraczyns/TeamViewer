@@ -70,7 +70,7 @@
                             <span data-bind="text: Employee.Name "></span>
                         </div>
                         <div align="right">
-                            <button data-toggle="collapse" data-target="#edittask" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
                         </div>
                     </div>
                 </div>
@@ -119,47 +119,6 @@
     </div>
 </div>
     
-    
-<div id="edittask" class="collapse">
-        <div class="col-md-4">
-            <div class="panel panel-success">
-                <div class="panel-heading h4">
-                    Edytuj zadanie
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" data-bind="submit: addTask">
-
-                        <div class="form-group">
-
-                            <div class="col-sm-10">
-                                <strong>Opis: </strong>
-                                <span><textarea class="form-control" id="Description" data-bind="value: updateTask.Description"></textarea></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value: updateTask.StartDate" /></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value: updateTask.EndDate" /></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <strong>Przypisz do: </strong>
-                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: updateTask.Employee"></select></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <strong>Manager: </strong>
-                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: updateTask.Manager"></select></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <strong>Punkty: </strong>
-                                <span><input type="text" class="form-control" id="Points" data-bind="value: updateTask.Points"></span>
-                            </div>
-                        </div>
-                        <button data-bind="click: $root.updateTask" class="btn btn-success btn-lg btn-block">Aktualizuj</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- /ko -->
     
 </div>

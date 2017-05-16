@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Organizator managerów", "List", "EmployeesView", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Organizator managerów", "EmployeeList", "View", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -26,7 +26,10 @@
                     <li>@Html.ActionLink("Statystyki", "Stats", "View", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Narzędzia administratora", "Administrator", "View", new { area = "" }, null)</li>
                 </ul>
-            </div>
+                <ul class="nav navbar-nav pull-right">
+                    <li> @Html.ActionLink("Logowanie", "Login", "View", new { area = "" }, null)</li>
+                </ul>
+            </div> 
         </div>
     </div>
     <div class="container body-content">

@@ -16,7 +16,6 @@
     self.helper = ko.observableArray();
     self.tasksStatuses = ko.observableArray();
     self.filteredManagers = ko.computed(function () {
-        console.log('filteredManager');
         var filter = self.name().toLowerCase();
         if (!filter) {
             return self.managers();
@@ -82,9 +81,9 @@
         Name : ko.observable(), 
         Points: ko.observable(),
         Manager: ko.observable(),
-        time : ko.observable(),
-        team : ko.observable(),
-        quality : ko.observable()
+        time : ko.observable(0),
+        team : ko.observable(0),
+        quality : ko.observable(0)
     };
     self.updatedEmployee = {
         Id: ko.observable(),
@@ -270,37 +269,39 @@
     };
 
     self.getNewTasksNumber = function (item) {
+       
         ajaxHelper(tasksUri + '?ManagerId=' + item.Id + '&Status=Nowe', 'GET').done(function (data) {
             self.helper(data);
-            self.tasksStatuses[0](self.helper().length);
+            console.log('self.helper().length: ', self.helper().length);
+            return self.helper().length;
         });
     };
 
     self.getToDoTasksNumber = function (item) {
         ajaxHelper(tasksUri + '?ManagerId=' + item.Id + '&Status=DoZrobienia', 'GET').done(function (data) {
             self.helper(data);
-            self.tasksStatuses[1](self.helper().length);
+            return self.helper().length;
         });
     };
 
     self.getInProgressTasksNumber = function (item) {
         ajaxHelper(tasksUri + '?ManagerId=' + item.Id + '&Status=Wtrakcie', 'GET').done(function (data) {
             self.helper(data);
-            self.tasksStatuses[2](self.helper().length);
+            return self.helper().length;
         });
     };
 
     self.getDoneTasksNumber = function (item) {
         ajaxHelper(tasksUri + '?ManagerId=' + item.Id + '&Status=Zrobione', 'GET').done(function (data) {
             self.helper(data);
-            self.tasksStatuses[3](self.helper().length);
+            return self.helper().length;
         });
     };
 
     self.getClosedTasksNumber = function (item) {
         ajaxHelper(tasksUri + '?ManagerId=' + item.Id + '&Status=Zamkniete', 'GET').done(function (data) {
             self.helper(data);
-            self.tasksStatuses[4](self.helper().length);
+            return self.helper().length;
         });
     };
 
@@ -364,30 +365,6 @@
             Points: self.newTask.Points()
         };
         ajaxHelper(tasksUri, 'POST', task);
-    };
-    self.updatedTask = {
-        Id: ko.observable(),
-        Employee: ko.observable(),
-        Manager: ko.observable(),
-        StartDate: ko.observable(),
-        EndDate: ko.observable(),
-        Description: ko.observable(),
-        Points: ko.observable()
-    };
-    self.updateTask = function () {
-        console.log('Updating task');
-        var task = {
-            Id: self.detail().Id,
-            EmployeeId: self.updateTask.Employee.Id,
-            ManagerId: self.updateTask.Manager.Id,
-            StartDate: self.updateTask.StartDate,
-            EndDate: self.updateTask.EndDate,
-            Description: self.updateTask.Description,
-            Points: self.updateTask.Points
-        };
-        ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {
-            self.detail(data);
-        });
     };
     // Fetch the initial data.
     getAllEmployees();

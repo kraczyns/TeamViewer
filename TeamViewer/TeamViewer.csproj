@@ -333,6 +333,7 @@
     <Content Include="Views\View\ManagerList.cshtml" />
     <Content Include="Views\View\TaskList.cshtml" />
     <Content Include="Views\View\Stats.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705091542427_Initial.resx">
