@@ -295,8 +295,8 @@
         });
     }
     self.newTask = {
-        EmployeeId: ko.observable(),
-        ManagerId: ko.observable(),
+        Employee: ko.observable(),
+        Manager: ko.observable(),
         StartDate: ko.observable(),
         EndDate: ko.observable(),
         Description: ko.observable(),
@@ -304,19 +304,13 @@
     };
     self.addTask = function () {
         console.log('Adding task');
-        console.log(self.newTask.EmployeeId);
-        console.log(self.newTask.Manager);
-        console.log(self.newTask.StartDate);
-        console.log(self.newTask.EndDate);
-        console.log(self.newTask.Description);
-        console.log(self.newTask.Points);
         var task = {
-            EmployeeId: self.newTask.EmployeeId,
-            ManagerId: self.newTask.ManagerId,
-            StartDate: self.newTask.StartDate,
-            EndDate: self.newTask.EndDate,
-            Description: self.newTask.Description,
-            Points: self.newTask.Points
+            EmployeeId: self.newTask.Employee().Id,
+            ManagerId: self.newTask.Manager().Id,
+            StartDate: self.newTask.StartDate(),
+            EndDate: self.newTask.EndDate(),
+            Description: self.newTask.Description(),
+            Points: self.newTask.Points()
         };
         ajaxHelper(tasksUri, 'POST', task);
     };
