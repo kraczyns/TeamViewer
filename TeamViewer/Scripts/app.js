@@ -366,6 +366,30 @@
         };
         ajaxHelper(tasksUri, 'POST', task);
     };
+    self.updatedTask = {		
+                Id: ko.observable(),		
+                Employee: ko.observable(),		
+                Manager: ko.observable(),		
+                StartDate: ko.observable(),		
+                EndDate: ko.observable(),		
+                Description: ko.observable(),		
+                Points: ko.observable()		
+            };		
+    self.updateTask = function () {		
+            console.log('Updating task');		
+            var task = {		
+                    Id: self.detail().Id,		
+                    EmployeeId: self.updateTask.Employee.Id,		
+                    ManagerId: self.updateTask.Manager.Id,		
+                    StartDate: self.updateTask.StartDate,		
+                    EndDate: self.updateTask.EndDate,		
+                    Description: self.updateTask.Description,		
+                    Points: self.updateTask.Points		
+                };		
+        ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {		
+                self.detail(data);		
+            });		
+    };
     // Fetch the initial data.
     getAllEmployees();
     getAllDaysOff();
