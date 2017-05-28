@@ -28,6 +28,11 @@ namespace TeamViewer
              "~/Scripts/knockout-{version}.js",
              "~/Scripts/moment.js",
              "~/Scripts/app.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/employee").Include(
+            "~/Scripts/knockout-{version}.js",
+            "~/Scripts/moment.js",
+            "~/Scripts/employee.js"));
         }
     }
 }

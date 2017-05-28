@@ -1,15 +1,11 @@
 ﻿@section scripts {
-    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/employee")
 }
-
 @{
     ViewBag.Title = "Pracownicy";
 }
-<h1>
-
-</h1>
+<h1></h1>
 <div class="row">
-
     <div class="col-md-4">
         <div class="panel panel-success">
             <div class="panel-heading h4"> <span class="glyphicon glyphicon-user"></span> Pracownicy </div>
@@ -18,21 +14,20 @@
                 <div class="searchForm">
                     <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
                 </div>
-                   <div class="searchManagerForm">
+                <div class="searchManagerForm">
                     <input placeholder="Sortuj po managerze..." type="search" class="form-control" data-bind="textInput: manager" autocomplete="off" />
                 </div>
                 <br>
                 <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
-                <ul class="list-unstyled" data-bind= "foreach: filteredEmployees">
+                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
                     <li>
                         <a href="#" data-bind="click: $parent.getDetails"><span data-bind="text: Name"></span></a>
                     </li>
                 </ul>
             </div>
         </div>
-        </div>
-        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
-
+    </div>
+    <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
     <!-- ko if:detail() -->
     <div class="col-md-4">
         <div class="panel panel-success">
@@ -50,11 +45,12 @@
                                 <span data-bind="text: Name"></span>
                             </li>
                         </ul>
-
                     </td>
                 </tr>
                 <tr><td>Liczba ukonczonych zadan: </td><td data-bind="text: countDone()"> </td></tr>
-                <tr><td>Punkty: </td><td data-bind="text: detail().Points"></td>
+                <tr>
+                    <td>Punkty: </td>
+                    <td data-bind="text: detail().Points"></td>
                 </tr>
                 <tr>
                     <Td>
@@ -63,14 +59,13 @@
                         <button class="btn btn-success" data-toggle="collapse" data-target="#daysoff"><span class="glyphicon glyphicon-calendar"></span></button>
                         <button class="btn btn-success" data-toggle="collapse" data-target="#updateEmployee"><span class="glyphicon glyphicon-pencil"></span></button>
                     </Td>
-                    <td>
-                    </td>
+                    <td></td>
                 </tr>
-                
+
             </table>
-               
+
         </div>
-    </div> 
+    </div>
     <div id="updateEmployee" class="collapse">
         <div class="col-md-4">
             <div class="panel panel-success">
@@ -85,9 +80,8 @@
                                 <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
                             </div>
                         </div>
-
                         <div class="form-group" data-bind="with: updatedEmployee">
-                            
+
                             <div class="col-sm-10">
                                 <strong>Imię Nazwisko: </strong>
                                 <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
@@ -128,7 +122,7 @@
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
     <div class="collapse" id="tasks">
         <div class="col-md-4">
@@ -157,33 +151,81 @@
                                 <span data-bind="text: Points "></span>
                             </div>
                             <div align="right">
-                                <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button class="btn btn-success" data-bind="click: $parent.setTask" data-toggle="collapse" data-target="#editTask" ><span class="glyphicon glyphicon-pencil"></span></button>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-success btn-lg btn-block">Dodaj zadanie</button>
+                    <a href="@Url.Action("List", "TasksView")"  type="button" class="btn btn-success btn-lg btn-block">Dodaj zadanie</a>
                 </div>
             </div>
         </div>
     </div>
- <div class="collapse" id="daysoff">
-     <div class="col-md-4">
-         <div class="panel panel-success">
-             <div class="panel-heading h4">
-                 <span class="glyphicon glyphicon-calendar"></span>
-                 Urlop
-             </div>
-             <div class="panel-body">
-                 <ul class="list-unstyled" data-bind="foreach: daysOff">
-                     <li>
-                         <span data-bind="text: moment(Date).format('l')"></span>
-                     </li>
-                 </ul>
-                 <button data-toggle="collapse" data-target="#addDayOff" class="btn btn-success btn-lg btn-block">Dodaj urlop</button>
-             </div>
-         </div>
-     </div>
- </div>
+    <div id="editTask" class="collapse">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-pencil"></span>Edytuj zadanie
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <strong>Manager: </strong>
+                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedTask.Manager"></select></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <strong>Przypisz do: </strong>
+                                <span><select class="form-control" data-bind="options:employees, optionsText: 'Name', value: updatedTask.Employee"></select></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <strong>Status: </strong>
+                                <span><select class="form-control" data-bind="options:statuses, value: updatedTask.Status"></select></span>
+                            </div>
+                        </div>
+                        <div class="form-group" data-bind="with: updatedTask">
+                            <div class="col-sm-10">
+                                <strong>Opis: </strong>
+                                <span><textarea class="form-control" id="Description" data-bind="value: Description"></textarea></span>
+                            </div>
+                            <div class="col-sm-10">
+                                <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value: StartDate" /></span>
+                            </div>
+                            <div class="col-sm-10">
+                                <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value: EndDate" /></span>
+                            </div>
+                            <div class="col-sm-10">
+                                <strong>Punkty: </strong>
+                                <span><input type="text" class="form-control" id="Points" data-bind="value: Points"></span>
+                            </div>
+                        </div>
+                        <button data-bind="click: $root.updateTask" class="btn btn-success btn-lg btn-block">Aktualizuj</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="daysoff">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading h4">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Urlop
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled" data-bind="foreach: daysOff">
+                        <li>
+                            <span data-bind="text: moment(Date).format('l')"></span>
+                        </li>
+                    </ul>
+                    <button data-toggle="collapse" data-target="#addDayOff" class="btn btn-success btn-lg btn-block">Dodaj urlop</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="addDayOff" class="collapse">
         <div class="col-md-4">
             <div class="panel panel-success">
