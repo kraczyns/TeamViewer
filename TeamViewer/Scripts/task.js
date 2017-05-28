@@ -49,6 +49,19 @@
             });
         }
     });
+    self.filteredTasks = ko.computed(function () {
+        var filterSearch = self.query().toLowerCase();
+        var filteredSearch = self._tasks();
+
+        if (filterSearch) {
+            return ko.utils.arrayFilter(filteredSearch, function (item) {
+                filteredSearch = item.Description.toLowerCase().indexOf(filterSearch) !== -1;
+                return filteredSearch;
+            });
+        }
+
+        return filteredSearch;
+    });
 
     var employeesUri = '/api/employees';
     var daysUri = '/api/dayoffs';
@@ -333,7 +346,50 @@
             self._days(data);
         });
     }
-
+    self.newTask = {
+        Employee: ko.observable(),
+        Manager: ko.observable(),
+        StartDate: ko.observable(),
+        EndDate: ko.observable(),
+        Description: ko.observable(),
+        Points: ko.observable()
+    };
+    self.addTask = function () {
+        console.log('Adding task');
+        var task = {
+            EmployeeId: self.newTask.Employee().Id,
+            ManagerId: self.newTask.Manager().Id,
+            StartDate: self.newTask.StartDate(),
+            EndDate: self.newTask.EndDate(),
+            Description: self.newTask.Description(),
+            Points: self.newTask.Points()
+        };
+        ajaxHelper(tasksUri, 'POST', task);
+    };
+    self.updatedTask = {		
+                Id: ko.observable(),		
+                Employee: ko.observable(),		
+                Manager: ko.observable(),		
+                StartDate: ko.observable(),		
+                EndDate: ko.observable(),		
+                Description: ko.observable(),		
+                Points: ko.observable()		
+            };		
+    self.updateTask = function () {		
+            console.log('Updating task');		
+            var task = {		
+                    Id: self.detail().Id,		
+                    EmployeeId: self.updateTask.Employee.Id,		
+                    ManagerId: self.updateTask.Manager.Id,		
+                    StartDate: self.updateTask.StartDate,		
+                    EndDate: self.updateTask.EndDate,		
+                    Description: self.updateTask.Description,		
+                    Points: self.updateTask.Points		
+                };		
+        ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {		
+                self.detail(data);		
+            });		
+    };
     // Fetch the initial data.
     getAllEmployees();
     getAllDaysOff();
