@@ -23,6 +23,7 @@ namespace TeamViewer.Controllers
             return db.Users;
         }
 
+        // GET: api/Login
         public async Task<bool> Login(string username, string password)
         {
             var user = (from u in db.Users

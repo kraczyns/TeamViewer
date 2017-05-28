@@ -297,13 +297,21 @@
             return self.helper().length;
         });
     };
-    self.addUser = function () {
-        console.log('Adding user');
+    self.register = function () {
+        console.log('Registering user');
         var user = {
             Username: self.user.Username,
             Passowrd: self.user.Password
         };
         ajaxHelper(loginUri, 'POST', user);
+    };
+    self.login = function () {
+        console.log('Logging in');
+        var user = {
+            Username: self.user.Username,
+            Passowrd: self.user.Password
+        };
+        ajaxHelper(loginUri, 'GET', user);
     };
 
     self.getStatuses = function (item) {
