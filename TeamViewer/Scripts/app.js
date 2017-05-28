@@ -54,6 +54,7 @@
     var daysUri = '/api/dayoffs';
     var tasksUri = '/api/tasks';
     var managersUri = '/api/managers';
+    var loginUri = '/api/login';
 
     self.detail = ko.observable();
     self.detailMan = ko.observable();
@@ -81,6 +82,11 @@
     self.newDayOff = {
         Date: ko.observable(),
         EmployeeId: ko.observable()
+    };
+    self.user = {
+        Id: ko.observable(),
+        Username: ko.observable(),
+        Password: ko.observable()
     };
     self.addDayOff = function () {
         console.log('Adding day off');
@@ -290,6 +296,14 @@
             self.helper(data);
             return self.helper().length;
         });
+    };
+    self.addUser = function () {
+        console.log('Adding user');
+        var user = {
+            Username: self.user.Username,
+            Passowrd: self.user.Password
+        };
+        ajaxHelper(loginUri, 'POST', user);
     };
 
     self.getStatuses = function (item) {

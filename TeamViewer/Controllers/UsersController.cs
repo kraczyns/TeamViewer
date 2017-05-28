@@ -35,17 +35,15 @@ namespace TeamViewer.Controllers
             return false;
         }
 
+        // POST: api/Login
         [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> Register(string username, string password)
+        public async Task<IHttpActionResult> Register(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new User();
-            user.username = username;
-            user.password = password;
 
             db.Users.Add(user);
             await db.SaveChangesAsync();
