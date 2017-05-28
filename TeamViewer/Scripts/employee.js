@@ -7,14 +7,6 @@
     self.daysOff = ko.observableArray();
     self.tasks = ko.observableArray();
     self.finishedTasks = ko.observableArray();
-    self.statuses = ko.observableArray("@Model.Statuses");
-        /*([
-        { name: "Nowe", id: 1 },
-        { name: "Do Zrobienia", id: 2 },
-        { name: "W trakcie", id: 3 },
-        { name: "Zrobione", id: 4 },
-        { name: "Zamknięte", id: 5 }
-    ]);*/
     self.error = ko.observable();
     self.query = ko.observable("");
     self.manager = ko.observable("");
