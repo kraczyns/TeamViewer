@@ -9,7 +9,7 @@
 <div class="row">
 
     <div class="col-md-4">
-        <div class="panel panel-success">
+        <div class="panel panel-warning">
             <div class="panel-heading h4"> <span class="glyphicon glyphicon-user"></span> Zadania </div>
             <div class="panel-body">
                 <label class="panel-title h4"> <span class="glyphicon glyphicon-search"></span> Wyszukiwarka zadań  </label>
@@ -25,13 +25,13 @@
                 </ul>
             </div>
         </div>
-        <button data-toggle="collapse" data-target="#addtask" class="btn btn-success btn-lg btn-block">Dodaj zadanie</button>
+        <button data-toggle="collapse" data-target="#addtask" class="btn btn-warning btn-lg btn-block">Dodaj zadanie</button>
     </div>
     <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
     
     <div id="addtask" class="collapse">
         <div class="col-md-4">
-            <div class="panel panel-success">
+            <div class="panel panel-warning">
                 <div class="panel-heading h4">
                     Dodaj nowe zadanie
                 </div>
@@ -63,7 +63,7 @@
                                 <span><input type="text" class="form-control" id="Points" data-bind="value: newTask.Points"></span>
                             </div>
                         </div>
-                        <button data-bind="click: $root.addTask" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                        <button data-bind="click: $root.addTask" class="btn btn-warning btn-lg btn-block">Zapisz</button>
                     </form>
                 </div>
             </div>
@@ -73,7 +73,7 @@
     <!-- ko if:detail() -->
 
     <div class="col-md-4">
-        <div class="panel panel-success">
+        <div class="panel panel-warning">
             <div class="panel-heading h4">
                 <span class="glyphicon glyphicon-tasks"></span>
                 Szczegóły zadania &nbsp;
@@ -110,7 +110,7 @@
                             <span data-bind="text: Employee.Name "></span>
                         </div>
                         <div align="right">
-                            <button data-toggle="collapse" data-target="#edittask" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button data-toggle="collapse" data-target="#edittask" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
 
     <div id="edittask" class="collapse">
         <div class="col-md-4">
-            <div class="panel panel-success">
+            <div class="panel panel-warning">
                 <div class="panel-heading h4">
                     Edytuj zadanie
                 </div>
@@ -152,7 +152,7 @@
                                 <span><input type="text" class="form-control" id="Points" data-bind="value: updateTask.Points"></span>
                             </div>
                         </div>
-                        <button data-bind="click: $root.updateTask" class="btn btn-success btn-lg btn-block">Aktualizuj</button>
+                        <button data-bind="click: $root.updateTask" class="btn btn-warning btn-lg btn-block">Aktualizuj</button>
                     </form>
                 </div>
             </div>
