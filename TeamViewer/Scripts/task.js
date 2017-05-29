@@ -376,15 +376,15 @@
                 Points: ko.observable()		
             };		
     self.updateTask = function () {		
-            console.log('Updating task');		
+        console.log('Updating task');
             var task = {		
                     Id: self.detail().Id,		
-                    EmployeeId: self.updateTask.Employee.Id,		
-                    ManagerId: self.updateTask.Manager.Id,		
-                    StartDate: self.updateTask.StartDate,		
-                    EndDate: self.updateTask.EndDate,		
-                    Description: self.updateTask.Description,		
-                    Points: self.updateTask.Points		
+                    EmployeeId: self.updateTask.Employee.Id || self.detail().Employee.Id,
+                    ManagerId: self.updateTask.Manager.Id || self.detail().Manager.Id,
+                    StartDate: self.updateTask.StartDate || self.detail().StartDate,
+                    EndDate: self.updateTask.EndDate || self.detail().EndDate,
+                    Description: self.updateTask.Description || self.detail().Description,
+                    Points: self.updateTask.Points || self.detail().Points
                 };		
         ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {		
                 self.detail(data);		
