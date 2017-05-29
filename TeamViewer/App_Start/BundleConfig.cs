@@ -25,7 +25,7 @@ namespace TeamViewer
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-             "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/knockout-{version}.js",
              "~/Scripts/moment.js",
              "~/Scripts/app.js"));
             bundles.Add(new ScriptBundle("~/bundles/task").Include(
@@ -46,7 +46,12 @@ namespace TeamViewer
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
             "~/Scripts/knockout-{version}.js",
             "~/Scripts/moment.js",
-            "~/Scripts/manager.js"));
+            "~/Scripts/admin.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/stats").Include(
+"~/Scripts/knockout-{version}.js",
+"~/Scripts/moment.js",
+"~/Scripts/stats.js"));
         }
     }
 }

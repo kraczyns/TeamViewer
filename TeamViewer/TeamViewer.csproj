@@ -278,6 +278,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\manager.js" />
+    <Content Include="Scripts\stats.js" />
     <Content Include="Scripts\task.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
