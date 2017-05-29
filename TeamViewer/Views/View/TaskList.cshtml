@@ -78,45 +78,56 @@
                 <span class="glyphicon glyphicon-tasks"></span>
                 Szczegóły zadania &nbsp;
             </div>
-            <div class="panel-body">
-                <div class="tasks" data-bind="with: detail()">
-                    <div class="well">
-                        <div>
-                            <strong>Identyfikator zadania: </strong>
-                            <span data-bind="text: Id"></span>
-                        </div>
-                        <div>
-                            <strong>Data rozpoczęcia: </strong>
-                            <span data-bind="text: moment(StartDate).format('D/M/YYYY')"></span>
-                        </div>
-                        <div>
-                            <strong>Data zakończenia: </strong>
-                            <span data-bind="text: moment(EndDate).format('D/M/YYYY')"></span>
-                        </div>
-                        <div>
-                            <strong>Opis: </strong>
-                            <span data-bind="text: Description"></span>
-                        </div>
-                        <div>
-                            <strong>Punkty: </strong>
-                            <span data-bind="text: Points "></span>
-                        </div>
-                        <div>
-                            <strong>Status zadania: </strong>
-                            <span data-bind="text: Status "></span>
-                        </div>
-                        <div>
-                            <strong>Przypisane do: </strong>
-                            <span data-bind="text: Employee.Name "></span>
-                        </div>
-                        <div align="right">
-                            <button data-toggle="collapse" data-target="#edittask" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+                        <table class="table">
+                        <tr>
+                            <td><strong>Identyfikator zadania: </strong></td>
+                            <td data-bind="text: detail().Id"></td>
+                        </tr>
+                            <tr>
+                                <td><strong>Data rozpoczęcia: </strong></td>
+                                <td data-bind="text: moment(detail().StartDate).format('D/M/YYYY')"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Data zakończenia: </strong>
+                                </td>
+                                <td data-bind="text: moment(detail().EndDate).format('D/M/YYYY')"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Opis: </strong>
+                                </td>
+                                <td data-bind="text: detail().Description"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Punkty: </strong>
+                                </td>
+                                <td data-bind="text: detail().Points "></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Status zadania: </strong>
+                                </td>
+                                <td data-bind="text: detail().Status "></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Przypisane do: </strong>
+                                </td>
+                                <td data-bind="text: detail().Employee.Name "></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button data-toggle="collapse" data-target="#edittask" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+       
+           </div>
         </div>
-    </div>
 
     <div id="edittask" class="collapse">
         <div class="col-md-4">
