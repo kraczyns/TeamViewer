@@ -25,6 +25,7 @@ namespace TeamViewer.Models
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public int Points { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public Statuses Status { get; set; }
 
         public Manager Manager { get; set; }
