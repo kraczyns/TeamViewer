@@ -15,7 +15,8 @@
     // Filtowanie pracowników po ich nazwie i po managerze
     self.filteredEmployees = ko.computed(function () {
         var filterSearch = self.query().toLowerCase();
-        var filterManager = self.manager().toLowerCase();
+        var filterManager = self.manager();
+        
         var filteredManager = self.employees();
         var filteredSearch = self.employees();
 
@@ -27,13 +28,14 @@
         } else if (!filterManager && !filterSearch) {
             return self.employees();
         } else if (filterManager && !filterSearch) {
+            console.log('manager: ', manager);
             return ko.utils.arrayFilter(filteredSearch, function (item) {
-                filteredManager = item.Manager.Name.toLowerCase().indexOf(filterManager) !== -1;
+                filteredManager = item.Manager.Name == filterManager;
                 return filteredManager;
             });
         } else if (filterManager && filterSearch) {
             return ko.utils.arrayFilter(self.employees(), function (item) {
-                return item.Manager.Name.toLowerCase().indexOf(filterManager) !== -1 && item.Name.toLowerCase().indexOf(filterSearch) !== -1;
+                return item.Manager.Name == filterManager && item.Name.toLowerCase().indexOf(filterSearch) !== -1;
             });
         }
     });

@@ -17,6 +17,9 @@
                 <div class="searchManagerForm">
                     <input placeholder="Sortuj po managerze..." type="search" class="form-control" data-bind="textInput: manager" autocomplete="off" />
                 </div>
+                <div class="dropdownManager">
+                    <select class="form-control" data-bind="options: managers, optionsText: 'Name', optionsCaption: 'Sortuj po managerze...', value: 'manager'"> </select>
+                </div>
                 <br>
                 <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
                 <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
