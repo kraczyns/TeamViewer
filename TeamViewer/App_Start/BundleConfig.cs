@@ -25,17 +25,9 @@ namespace TeamViewer
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-             "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/knockout-{version}.js",
              "~/Scripts/moment.js",
              "~/Scripts/app.js"));
-            bundles.Add(new ScriptBundle("~/bundles/task").Include(
- "~/Scripts/knockout-{version}.js",
- "~/Scripts/moment.js",
- "~/Scripts/task.js"));
-            bundles.Add(new ScriptBundle("~/bundles/employee").Include(
-  "~/Scripts/knockout-{version}.js",
-  "~/Scripts/moment.js",
-  "~/Scripts/employee.js"));
             bundles.Add(new ScriptBundle("~/bundles/task").Include(
              "~/Scripts/knockout-{version}.js",
              "~/Scripts/moment.js",
@@ -45,6 +37,24 @@ namespace TeamViewer
             "~/Scripts/knockout-{version}.js",
             "~/Scripts/moment.js",
             "~/Scripts/employee.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/manager").Include(
+            "~/Scripts/knockout-{version}.js",
+            "~/Scripts/moment.js",
+            "~/Scripts/manager.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/admin").Include(
+            "~/Scripts/knockout-{version}.js",
+            "~/Scripts/moment.js",
+            "~/Scripts/admin.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/stats").Include(
+"~/Scripts/knockout-{version}.js",
+"~/Scripts/moment.js",
+"~/Scripts/stats.js",
+"~/Scripts/Chart.js",
+"~/Scripts/Chart.min.js",
+"~/Scripts/knockout.chart.js"));
         }
     }
 }
