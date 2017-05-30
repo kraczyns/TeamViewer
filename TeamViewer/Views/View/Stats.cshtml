@@ -8,61 +8,60 @@
 <h1></h1>
 
 <html>
-<head>
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(goForEach);
-      var numbers = [[1, 2, 3, 4, 5], [2, 2, 3, 4, 5], [3, 2, 3, 4, 4]];
-      function goForEach() {
-          numbers.forEach(function (item) {
-              var data = new google.visualization.DataTable();
-              data.addColumn('string', 'Topping');
-              data.addColumn('number', 'Slices');
-              data.addRows([
-                ['Nowe', item[0]],
-                ['Do Zrobienia', item[1]],
-                ['W trakcie', item[2]],
-                ['Zrobione', item[3]],
-                ['Zamkięte', item[4]]
-              ]);
-
-              // Set chart options
-              var options = {
-                  'title': 'Zespół managera: ' + item[0]
-              };
-
-              var chart = new google.visualization.PieChart(document.getElementById(item[0]));
-              chart.draw(data, options);
-          });
-      }
-     
-      
-    </script>
-</head>
 
 <body>
-    <!--Div that will hold the pie chart-->
-    <div class="row">
-        <div id="1">
+    <div class="col-md-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading h4">
+                <span class="glyphicon glyphicon-bookmark"></span> Mangerowie
+            </div>
+            <div class="panel-body">
+                <div data-bind="foreach: managers">
+                    <span data-bind="text: Name, click: $parent.getTasks"></span><br />
+                </div>
+                </div>
+            </div>
+    </div>
+    <!-- ko if:tasks() -->
+    <div class="col-md-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading h4">
+                <span class="glyphicon glyphicon-bookmark"></span> Zadania
+            </div>
+            <div class="panel-body">
+                <div id="dynamic-doughnut-example">
+                    <canvas id="some-dynamic-doughnut-chart"
+                            data-bind="chart: { type: 'pie', data: data, options: { observeChanges: true, throttle: 100} }"></canvas>
+                </div>
+                <strong>Nowe zadania: </strong><span data-bind="text: newTasks()"></span> <br />
+                <strong>Zadania do zrobienia: </strong><span data-bind="text: todoTasks()"></span> <br />
+                <strong>Zadania w trakcie: </strong><span data-bind="text: inprogressTasks()"></span> <br />
+                <strong>Gotowe zadania: </strong><span data-bind="text: doneTasks()"></span> <br />
+                <strong>Zamknięte zadania: </strong><span data-bind="text: closedTasks()"></span> <br />
+                </div>
+            </div>
         </div>
-
-        <div id="2">
-        </div>
-
-        <div id="3">
+    <!-- /ko -->
+    <div class="col-md-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading h4">
+                <span class="glyphicon glyphicon-bookmark"></span> Pracownicy
+            </div>
+            <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Pracownik</th>
+                                <th>Punkty</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: employees">
+                            <tr data-bind="visible: ($index() < 3)" class="danger"><td data-bind="text: Name"></td><td data-bind="text: Points"></td></tr>
+                            <tr data-bind="visible: ($index() > 2)"><td data-bind="text: Name"></td><td data-bind="text: Points"></td></tr>
+                            </tbody>
+</table>
+            </div>
         </div>
     </div>
-    <div data-bind="foreach: $root.getStatuses(managers())">
-        <strong data-bind="Name"></strong>
-        <strong>Nowe</strong><span data-bind="text : tasksStatuses[0]"></span>
-        <strong>Do zrobienia</strong><span data-bind="text : tasksStatuses[1]"></span>
-        <strong>W trakcie</strong><span data-bind="text : tasksStatuses[2]"></span>
-        <strong>Zrobione</strong><span data-bind="text : tasksStatuses[3]"></span>
-        <strong>Zamknięte</strong><span data-bind="text : tasksStatuses[4]"></span>
-    </div>
-   
 </body>
 </html>

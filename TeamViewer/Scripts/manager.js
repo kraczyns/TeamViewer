@@ -1,4 +1,4 @@
-﻿var ViewModel = function () {
+﻿var ManagerViewModel = function () {
     var self = this;
     self.employees = ko.observableArray();
     self.managers = ko.observableArray();
@@ -167,5 +167,5 @@
 
 };
 
-ko.applyBindings(new ViewModel());
+ko.applyBindings(new ManagerViewModel());
 

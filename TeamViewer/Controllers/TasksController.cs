@@ -84,6 +84,15 @@ namespace TeamViewer.Controllers
             return Ok(tasks);
         }
 
+
+        public IHttpActionResult getNumberOfTasks(Statuses status, int managerId, bool count)
+        {
+            var tasks = db.Tasks.Include(t => t.Manager).
+              Where(t => t.ManagerId == managerId).Where(t => t.Status == status).ToArray();
+
+            return Ok(tasks.Count());
+        }
+
         // PUT: api/Tasks/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutTask(int id, Models.Task task)

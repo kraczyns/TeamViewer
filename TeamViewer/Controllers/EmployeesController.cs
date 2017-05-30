@@ -49,6 +49,11 @@ namespace TeamViewer.Controllers
 
         }
 
+        public IQueryable<Employee> GetEmployeesSorted(bool sorted)
+        {
+            return db.Employees.Include(e => e.Manager).OrderByDescending(x => x.Points);
+        }
+
         // GET: api/Employees?ManagerId=5
         //Zwraca listę pracowników przypisanych do danego managera
         [ResponseType(typeof(Employee))]
@@ -115,7 +120,7 @@ namespace TeamViewer.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = employee.Id }, employee);
         }
-/*
+
         // DELETE: api/Employees/5
         [ResponseType(typeof(Employee))]
         public async Task<IHttpActionResult> DeleteEmployee(int id)
@@ -131,7 +136,7 @@ namespace TeamViewer.Controllers
 
             return Ok(employee);
         }
-        */
+     
         protected override void Dispose(bool disposing)
         {
             if (disposing)

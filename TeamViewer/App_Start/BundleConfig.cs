@@ -51,7 +51,10 @@ namespace TeamViewer
             bundles.Add(new ScriptBundle("~/bundles/stats").Include(
 "~/Scripts/knockout-{version}.js",
 "~/Scripts/moment.js",
-"~/Scripts/stats.js"));
+"~/Scripts/stats.js",
+"~/Scripts/Chart.js",
+"~/Scripts/Chart.min.js",
+"~/Scripts/knockout.chart.js"));
         }
     }
 }

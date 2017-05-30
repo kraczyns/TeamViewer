@@ -1,4 +1,4 @@
-﻿var ViewModel = function () {
+﻿var AdminViewModel = function () {
     var self = this;
     self.employees = ko.observableArray();
     self.managers = ko.observableArray();
@@ -160,11 +160,9 @@
 
     // Fetch the initial data.
     getAllEmployees();
-    getAllDaysOff();
-    getAllTasks();
     getAllManagers();
 
 };
 
-ko.applyBindings(new ViewModel());
+ko.applyBindings(new AdminViewModel());
 
