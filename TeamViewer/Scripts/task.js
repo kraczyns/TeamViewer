@@ -346,6 +346,12 @@
             self._days(data);
         });
     }
+
+    self.getTask = function (item) {
+        ajaxHelper(tasksUri + '/' + item.Id, 'GET').done(function (data) {
+            self.detail(data);
+        })
+    };
     self.newTask = {
         Employee: ko.observable(),
         Manager: ko.observable(),
@@ -364,7 +370,10 @@
             Description: self.newTask.Description(),
             Points: self.newTask.Points()
         };
-        ajaxHelper(tasksUri, 'POST', task);
+        ajaxHelper(tasksUri, 'POST', task).done(function () {
+            console.log("Task added");
+            getAllTasks();
+        })
     };
     self.updatedTask = {		
                 Id: ko.observable(),		
@@ -373,21 +382,31 @@
                 StartDate: ko.observable(),		
                 EndDate: ko.observable(),		
                 Description: ko.observable(),		
-                Points: ko.observable()		
+                Points: ko.observable(),
+                Status: ko.observable()
             };		
     self.updateTask = function () {		
             console.log('Updating task');		
-            var task = {		
-                    Id: self.detail().Id,		
-                    EmployeeId: self.updateTask.Employee.Id,		
-                    ManagerId: self.updateTask.Manager.Id,		
-                    StartDate: self.updateTask.StartDate,		
-                    EndDate: self.updateTask.EndDate,		
-                    Description: self.updateTask.Description,		
-                    Points: self.updateTask.Points		
-                };		
-        ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {		
-                self.detail(data);		
+            var task = {
+                Id: self.detail().Id,
+                EmployeeId: (self.updatedTask.Employee() == undefined) ?
+                 self.detail().Employee.Id : self.updatedTask.Employee().Id,
+                ManagerId: (self.updatedTask.Manager() == undefined) ?
+                 self.detail().Manager.Id : self.updatedTask.Manager().Id,
+                StartDate: (self.updatedTask.StartDate() == undefined) ?
+                 self.detail().StartDate : self.updatedTask.StartDate(),
+                EndDate: (self.updatedTask.EndDate() == undefined) ?
+                  self.detail().EndDate : self.updatedTask.EndDate(),
+                Description: (self.updatedTask.Description() == undefined) ?
+                  self.detail().Description : self.updatedTask.Description(),
+                Points: (self.updatedTask.Points() == undefined) ?
+                  self.detail().Points : self.updatedTask.Points(),
+                Status: (self.updatedTask.Status() == undefined) ?
+                  self.detail().Status : self.updatedTask.Status()
+            };
+            ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {
+                self.getTask(self.detail());
+                getAllTasks();
             });		
     };
     // Fetch the initial data.

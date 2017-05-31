@@ -77,19 +77,24 @@
     };
     self.deleteEmployee = function () {
         console.log('Usuwanie pracownika');
-        ajaxHelper(employeesUri + '/' + self.detail().Id, 'DELETE');
+        ajaxHelper(employeesUri + '/' + self.detail().Id, 'DELETE').done(function (data) {
+            getAllEmployees();
+        })
     }
     self.updateEmployee = function () {
         console.log('Updating employee');
         var employee = {
             Id: self.detail().Id,
-            Name: self.updatedEmployee.Name(),
+            Name: (self.updatedEmployee.Name() == undefined) ?
+             self.detail().Name : self.updatedEmployee.Name(),
             Points: self.detail().Points,
-            ManagerId: self.updatedEmployee.Manager().Id
+            ManagerId: (self.updatedEmployee.Manager() == undefined) ?
+             self.detail().Manager.Id : self.updatedEmployee.Manager().Id
         };
 
         ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done(function (data) {
-            self.detail(data);
+            getAllEmployees();
+            self.getEmployee(self.detail());
         });
     };
     self.getEmployee = function (item) {
@@ -118,9 +123,12 @@
         console.log('Updating manager');
         var manager = {
             Id: self.detailMan().Id,
-            Name: self.updatedManager.Name()
+            Name: (self.updatedManager.Name() == undefined) ? self.detailMan().Name : self.updatedManager.Name()
         }
-        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'PUT', manager);
+        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'PUT', manager).done(function (data) {
+            getAllManagers();
+            self.getManager(self.detailMan());
+        })
     }
     self.addManager = function () {
         console.log('Adding manager');
@@ -132,7 +140,9 @@
 
     self.deleteManager = function () {
         console.log('Usuwanie managera');
-        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'DELETE');
+        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'DELETE').done(function (data) {
+            getAllManagers();
+        });
     }
     self.getManager = function (item) {
         console.log('Getting manager');

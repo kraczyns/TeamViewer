@@ -14,19 +14,18 @@
                 <div class="searchForm">
                     <input placeholder="Szukaj pracownika..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
                 </div>
-                <div class="searchManagerForm">
-                    <input placeholder="Sortuj po managerze..." type="search" class="form-control" data-bind="textInput: manager" autocomplete="off" />
-                </div>
                 <div class="dropdownManager">
-                    <select class="form-control" data-bind="options: managers, optionsText: 'Name', optionsCaption: 'Sortuj po managerze...', value: 'manager'"> </select>
+                    <select class="form-control" data-bind="options: managers, optionsText: 'Name', optionsCaption: 'Sortuj po managerze...', value: manager"> </select>
                 </div>
                 <br>
-                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista pracowników</label>
-                <ul class="list-unstyled" data-bind="foreach: filteredEmployees">
-                    <li>
-                        <a href="#" data-bind="click: $parent.getDetails"><span data-bind="text: Name"></span></a>
-                    </li>
-                </ul>
+                <table class="table table-hover">
+                    <thead>
+                        <tr><td class="panel-title h4"><span class="glyphicon glyphicon-th-list"></span> Lista pracowników</td></tr>
+                    </thead>
+                    <tbody data-bind="foreach: filteredEmployees">
+                        <tr><td data-bind="text: Name, click: $parent.getDetails"></td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -80,7 +79,7 @@
                         <div class="form-group">
                             <div class="col-sm-10">
                                 <strong>Manager: </strong>
-                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
+                                <span><select class="form-control" data-bind="options:managers, optionsCaption: 'Wybierz managera...', optionsText: 'Name', value: updatedEmployee.Manager"></select></span>
                             </div>
                         </div>
                         <div class="form-group" data-bind="with: updatedEmployee">
@@ -90,7 +89,7 @@
                                 <span><input type="text" class="form-control" id="inputName" data-bind="value:Name" /></span>
                             </div>
                         </div>
-                        <button data-bind="click: $root.updateEmployee" class="btn btn-success btn-lg btn-block">Zapisz</button>
+                        <button data-bind="click: $root.updateEmployee"  data-toggle="collapse" class="btn btn-success btn-lg btn-block">Zapisz</button>
                     </form>
                 </div>
             </div>
@@ -174,13 +173,13 @@
                         <div class="form-group">
                             <div class="col-sm-10">
                                 <strong>Manager: </strong>
-                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedTask.Manager"></select></span>
+                                <span><select class="form-control" data-bind="options:managers, optionsText: 'Name', optionsCaption: 'Wybierz managera...', value: updatedTask.Manager"></select></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-10">
                                 <strong>Przypisz do: </strong>
-                                <span><select class="form-control" data-bind="options:employees, optionsText: 'Name', value: updatedTask.Employee"></select></span>
+                                <span><select class="form-control" data-bind="options:employees, optionsText: 'Name', optionsCaption: 'Wybierz pracownik...', value: updatedTask.Employee"></select></span>
                             </div>
                         </div>
                         <div class="form-group" data-bind="with: updatedTask">

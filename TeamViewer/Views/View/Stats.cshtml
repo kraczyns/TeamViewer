@@ -13,12 +13,17 @@
     <div class="col-md-4">
         <div class="panel panel-danger">
             <div class="panel-heading h4">
-                <span class="glyphicon glyphicon-bookmark"></span> Mangerowie
+                <span class="glyphicon glyphicon-star"></span> Mangerowie
             </div>
             <div class="panel-body">
-                <div data-bind="foreach: managers">
-                    <span data-bind="text: Name, click: $parent.getTasks"></span><br />
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr><td><strong>Statystyki</strong></td></tr>
+                    </thead>
+                    <tbody  data-bind="foreach: managers">
+                        <tr><td data-bind="text: Name, click: $parent.getTasks"></td></tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
     </div>
@@ -26,7 +31,7 @@
     <div class="col-md-4">
         <div class="panel panel-danger">
             <div class="panel-heading h4">
-                <span class="glyphicon glyphicon-bookmark"></span> Zadania
+                <span class="glyphicon glyphicon-star"></span> Zadania
             </div>
             <div class="panel-body">
                 <div id="dynamic-doughnut-example">
@@ -45,7 +50,7 @@
     <div class="col-md-4">
         <div class="panel panel-danger">
             <div class="panel-heading h4">
-                <span class="glyphicon glyphicon-bookmark"></span> Pracownicy
+                <span class="glyphicon glyphicon-star"></span> Pracownicy TOP 10
             </div>
             <div class="panel-body">
                     <table class="table">
@@ -57,7 +62,7 @@
                         </thead>
                         <tbody data-bind="foreach: employees">
                             <tr data-bind="visible: ($index() < 3)" class="danger"><td data-bind="text: Name"></td><td data-bind="text: Points"></td></tr>
-                            <tr data-bind="visible: ($index() > 2)"><td data-bind="text: Name"></td><td data-bind="text: Points"></td></tr>
+                            <tr data-bind="visible: ($index() > 2 && $index() < 11)"><td data-bind="text: Name"></td><td data-bind="text: Points"></td></tr>
                             </tbody>
 </table>
             </div>

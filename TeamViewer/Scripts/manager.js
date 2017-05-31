@@ -45,11 +45,16 @@
     };
     self.updateManager = function () {
         console.log('Updating manager');
+
         var manager = {
             Id: self.detailMan().Id,
-            Name: self.updatedManager.Name()
+            Name: (self.updatedManager.Name() == undefined) ? self.detailMan().Name : self.updatedManager.Name()
         }
-        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'PUT', manager);
+        ajaxHelper(managersUri + '/' + self.detailMan().Id, 'PUT', manager).done(function () {
+            getAllManagers();
+            self.getManager(self.detailMan());
+            self.getManagerTeam(self.detailMan());
+        });
     }
 
     self.getManager = function (item) {
@@ -98,16 +103,23 @@
         console.log('Updating task');
         var task = {
             Id: self.detailTask().Id,
-            EmployeeId: self.updatedTask.Employee().Id,
-            ManagerId: self.updatedTask.Manager().Id,
-            StartDate: self.updatedTask.StartDate(),
-            EndDate: self.updatedTask.EndDate(),
-            Description: self.updatedTask.Description(),
-            Points: self.updatedTask.Points(),
-            Status: self.updatedTask.Status()
+            EmployeeId: (self.updatedTask.Employee() == undefined) ?
+             self.detailTask().Employee.Id : self.updatedTask.Employee().Id,
+            ManagerId: (self.updatedTask.Manager() == undefined) ?
+             self.detailTask().Manager.Id : self.updatedTask.Manager().Id,
+            StartDate: (self.updatedTask.StartDate() == undefined) ?
+             self.detailTask().StartDate : self.updatedTask.StartDate(),
+            EndDate: (self.updatedTask.EndDate() == undefined) ?
+              self.detailTask().EndDate : self.updatedTask.EndDate(),
+            Description: (self.updatedTask.Description() == undefined) ?
+              self.detailTask().Description : self.updatedTask.Description(),
+            Points: (self.updatedTask.Points() == undefined) ?
+              self.detailTask().Points : self.updatedTask.Points(),
+            Status: (self.updatedTask.Status() == undefined) ?
+              self.detailTask().Status : self.updatedTask.Status()
         };
-        ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {
-            self.detail(data);
+        ajaxHelper(tasksUri + '/' + self.detailTask().Id, 'PUT', task).done(function (data) {
+            self.getManagerTasks(self.detailMan());
         });
     };
 

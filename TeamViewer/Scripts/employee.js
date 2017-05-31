@@ -28,18 +28,24 @@
         } else if (!filterManager && !filterSearch) {
             return self.employees();
         } else if (filterManager && !filterSearch) {
-            console.log('manager: ', manager);
             return ko.utils.arrayFilter(filteredSearch, function (item) {
-                filteredManager = item.Manager.Name == filterManager;
+                filteredManager = item.Manager.Name == filterManager.Name;
                 return filteredManager;
             });
         } else if (filterManager && filterSearch) {
             return ko.utils.arrayFilter(self.employees(), function (item) {
-                return item.Manager.Name == filterManager && item.Name.toLowerCase().indexOf(filterSearch) !== -1;
+                return item.Manager.Name == filterManager.Name && item.Name.toLowerCase().indexOf(filterSearch) !== -1;
             });
         }
     });
 
+    self.refresh = function (item) {
+        getAllEmployees();
+        getAllDaysOff();
+        getAllManagers;
+        getAllTasks;
+        self.getDetails(item);
+}
     //pracownicy 
 
     var employeesUri = '/api/employees';
@@ -61,20 +67,26 @@
     };
     self.updateEmployee = function () {
         console.log('Updating employee');
+        var id = self.detail().Id;
         var employee = {
             Id: self.detail().Id,
-            Name: self.updatedEmployee.Name(),
+            Name: (self.updatedEmployee.Name() == undefined) ?
+             self.detail().Name : self.updatedEmployee.Name(),
             Points: self.detail().Points,
-            ManagerId: self.updatedEmployee.Manager().Id
+            ManagerId: (self.updatedEmployee.Manager() == undefined) ?
+             self.detail().Manager.Id : self.updatedEmployee.Manager().Id
         };
 
         ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done(function (data) {
-            self.detail(data);
+            console.log('Updating employee', self.detail().Id);
+            getAllEmployees();
+            self.getEmployee(id);
+            self.getTeam(data);     
         });
     };
-    self.getEmployee = function (item) {
+    self.getEmployee = function (id) {
         console.log('Getting employee');
-        ajaxHelper(employeesUri + '/' + item.Id, 'GET').done(function (data) {
+        ajaxHelper(employeesUri + '/' + id, 'GET').done(function (data) {
             self.detail(data);
         });
     }
@@ -84,6 +96,7 @@
         });
     }
     self.getDetails = function (item) {
+        self.detail(item);
         self.getDaysOff(item);
         self.getTeam(item);
         self.getTasks(item);
@@ -134,18 +147,26 @@
     }
     self.updateTask = function () {
         console.log('Updating task');
+
         var task = {
             Id: self.detailTask().Id,
-            EmployeeId: self.updatedTask.Employee().Id,
-            ManagerId: self.updatedTask.Manager().Id,
-            StartDate: self.updatedTask.StartDate(),
-            EndDate: self.updatedTask.EndDate(),
-            Description: self.updatedTask.Description(),
-            Points: self.updatedTask.Points(),
-            Status: self.updatedTask.Status()
+            EmployeeId: (self.updatedTask.Employee() == undefined) ?
+             self.detailTask().Employee.Id : self.updatedTask.Employee().Id,
+            ManagerId: (self.updatedTask.Manager() == undefined) ?
+             self.detailTask().Manager.Id : self.updatedTask.Manager().Id,
+            StartDate: (self.updatedTask.StartDate() == undefined) ?
+             self.detailTask().StartDate : self.updatedTask.StartDate(),
+            EndDate: (self.updatedTask.EndDate() == undefined) ?
+              self.detailTask().EndDate : self.updatedTask.EndDate(),
+            Description: (self.updatedTask.Description() == undefined) ?
+              self.detailTask().Description : self.updatedTask.Description(),
+            Points: (self.updatedTask.Points() == undefined) ?
+              self.detailTask().Points : self.updatedTask.Points(),
+            Status: (self.updatedTask.Status() == undefined) ?
+              self.detailTask().Status : self.updatedTask.Status()
         };
-        ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {
-            self.detail(data);
+        ajaxHelper(tasksUri + '/' + self.detailTask().Id, 'PUT', task).done(function (data) {
+            self.getTasks(self.detail());
         });
     };
     function getAllTasks() {
@@ -170,7 +191,7 @@
         ajaxHelper(daysUri, 'POST', dayOff);
     };
     self.getDaysOff = function (item) {
-        ajaxHelper(daysUri + '?EmployeeId=' + item.Id, 'GET').done(function (data) {
+        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=false', 'GET').done(function (data) {
             self.daysOff(data);
             self.detail(item);
         });
@@ -186,6 +207,7 @@
         console.log('Dodawanie punktów');
         var sum = parseInt(self.employee.time()) + parseInt(self.employee.team()) + parseInt(self.employee.quality()) + parseInt(self.detail().Points);
         console.log('Punkty z bazy:', parseInt(self.detail().Points))
+        var id = self.detail().Id;
         var employee = {
             Id: self.detail().Id,
             Name: self.detail().Name,
@@ -196,14 +218,15 @@
         console.log('Pracownik:', typeof (self.detail().Name), self.detail().Name)
         console.log('Punkty po przypisaniu:', employee.Points)
 
-        ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done();
+        ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done(function (data) {
+            self.getEmployee(id);
+        });
     };
 
    //zespół
     self.getTeam = function (item) {
         ajaxHelper(employeesUri + '?ManagerId=' + item.ManagerId, 'GET').done(function (data) {
             self.teamEmployees(data);
-            self.detail(item);
         });
     };
 

@@ -17,12 +17,14 @@
                     <input placeholder="Szukaj managera..." type="search" class="form-control" data-bind="textInput: name" autocomplete="off" />
                 </div>
                 <br>
-                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista managerów</label>
-                <ul class="list-unstyled" data-bind="foreach: filteredManagers">
-                    <li>
-                        <a href="#" data-bind="click: $parent.getManagerDetails"><span data-bind="text: Name"></span></a>
-                    </li>
-                </ul>
+                <table class="table table-hover">
+                    <thead>
+                        <tr><td class="panel-title h4"><span class="glyphicon glyphicon-th-list"></span> Lista managerów</td></tr>
+                    </thead>
+                    <tbody data-bind="foreach: filteredManagers">
+                        <tr><td data-bind="text: Name, click: $parent.getManagerDetails"></td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

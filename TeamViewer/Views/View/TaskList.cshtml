@@ -17,12 +17,14 @@
                     <input placeholder="Szukaj zadań..." type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
                 </div>
                 <br>
-                <label class="panel-title h4"> <span class="glyphicon glyphicon-th-list"></span> Lista zadań</label>
-                <ul class="list-unstyled" data-bind="foreach: filteredTasks">
-                    <li>
-                        <a href="#" data-bind="click: $parent.getDetails"><span data-bind="text: Description"></span></a>
-                    </li>
-                </ul>
+                <table class="table table-hover">
+                    <thead>
+                        <tr><td class="panel-title h4"><span class="glyphicon glyphicon-th-list"></span> Lista zadań</td></tr>
+                    </thead>
+                    <tbody data-bind="foreach: filteredTasks">
+                        <tr><td data-bind="text: Description, click: $parent.getDetails"></td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <button data-toggle="collapse" data-target="#addtask" class="btn btn-warning btn-lg btn-block">Dodaj zadanie</button>
@@ -52,11 +54,11 @@
                             </div>
                             <div class="col-sm-10">
                                 <strong>Przypisz do: </strong>
-                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: newTask.Employee"></select></span>
+                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: newTask.Employee, optionsCaption: 'Wybierz pracownika...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Manager: </strong>
-                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: newTask.Manager"></select></span>
+                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: newTask.Manager, optionsCaption: 'Wybierz managera...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Punkty: </strong>
@@ -136,31 +138,31 @@
                     Edytuj zadanie
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" data-bind="submit: addTask">
+                    <form class="form-horizontal">
 
                         <div class="form-group">
 
                             <div class="col-sm-10">
                                 <strong>Opis: </strong>
-                                <span><textarea class="form-control" id="Description" data-bind="value: updateTask.Description"></textarea></span>
+                                <span><textarea class="form-control" id="Description" data-bind="value: updatedTask.Description"></textarea></span>
                             </div>
                             <div class="col-sm-10">
-                                <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value: updateTask.StartDate" /></span>
+                                <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value: updatedTask.StartDate" /></span>
                             </div>
                             <div class="col-sm-10">
-                                <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value: updateTask.EndDate" /></span>
+                                <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value: updatedTask.EndDate" /></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Przypisz do: </strong>
-                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: updateTask.Employee"></select></span>
+                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: updatedTask.Employee, optionsCaption: 'Wybierz pracownika...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Manager: </strong>
-                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: updateTask.Manager"></select></span>
+                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedTask.Manager, optionsCaption: 'Wybierz managera...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Punkty: </strong>
-                                <span><input type="text" class="form-control" id="Points" data-bind="value: updateTask.Points"></span>
+                                <span><input type="text" class="form-control" id="Points" data-bind="value: updatedTask.Points"></span>
                             </div>
                         </div>
                         <button data-bind="click: $root.updateTask" class="btn btn-warning btn-lg btn-block">Aktualizuj</button>
