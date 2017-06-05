@@ -5,6 +5,8 @@
     self.managers = ko.observableArray();
     self.teamEmployees = ko.observableArray();
     self.daysOff = ko.observableArray();
+    self.daysOffHistory = ko.observableArray();
+    self.daysOffFuture = ko.observableArray();
     self.tasks = ko.observableArray();
     self.finishedTasks = ko.observableArray();
     self.error = ko.observable();
@@ -97,7 +99,8 @@
     }
     self.getDetails = function (item) {
         self.detail(item);
-        self.getDaysOff(item);
+        self.getDaysOffHistory(item);
+        self.getDaysOffFuture(item);
         self.getTeam(item);
         self.getTasks(item);
         self.getFinishedTasks(item);
@@ -188,19 +191,36 @@
             EmployeeId: self.detail().Id,
             isManager: false
         };
-        ajaxHelper(daysUri, 'POST', dayOff);
+        ajaxHelper(daysUri, 'POST', dayOff).done(function () {
+            getAllDaysOff();
+            self.getDaysOffFuture(self.detail());
+        })
     };
-    self.getDaysOff = function (item) {
-        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=false', 'GET').done(function (data) {
-            self.daysOff(data);
+    self.getDaysOffHistory = function (item) {
+        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=false&history=true', 'GET').done(function (data) {
+            self.daysOffHistory(data);
             self.detail(item);
         });
     };
+    self.getDaysOffFuture = function (item) {
+        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=false&future=true', 'GET').done(function (data) {
+            self.daysOffFuture(data);
+            self.detail(item);
+        });
+    };
+    self.deleteDayOff = function (item) {
+        console.log('Usuwanie dnia wolnego');
+        ajaxHelper(daysUri + '/' + item.Id, 'DELETE').done(function (data) {
+            self.getDaysOffFuture(self.detail());
+        });
+    }
     function getAllDaysOff() {
         ajaxHelper(daysUri, 'GET').done(function (data) {
             self.daysOff(data);
         });
     }
+
+
 
     //punkty
     self.addPoints = function () {

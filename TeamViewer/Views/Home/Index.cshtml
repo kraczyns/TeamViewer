@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Pracownicy";
 }
+﻿@model TeamViewer.Models.Task
 <h1></h1>
 <div class="row">
     <div class="col-md-4">
@@ -198,8 +199,16 @@
                                 <span><input type="text" class="form-control" id="Points" data-bind="value: Points"></span>
                             </div>
                         </div>
-                        <button data-bind="click: $root.updateTask" class="btn btn-success btn-lg btn-block">Aktualizuj</button>
-                    </form>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <strong>Status zadania: </strong>
+                                <span>
+                                    @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control", @id = "Status", @data_bind = "value: updatedTask.Status" })
+                                </span>
+                            </div>
+                        </div>
+                            <button data-bind="click: $root.updateTask" class="btn btn-success btn-lg btn-block">Aktualizuj</button>
+</form>
                 </div>
             </div>
         </div>
@@ -212,11 +221,22 @@
                     Urlop
                 </div>
                 <div class="panel-body">
-                    <ul class="list-unstyled" data-bind="foreach: daysOff">
-                        <li>
-                            <span data-bind="text: moment(Date).format('l')"></span>
-                        </li>
-                    </ul>
+                    <table class="table" data-bind="foreach: daysOffFuture">
+                        <tbody>
+                            <tr>
+                                <td data-bind="text: moment(Date).format('l')"></td>
+                                <td> <span class="glyphicon glyphicon-remove" data-bind="click: $parent.deleteDayOff"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a data-toggle="collapse" data-target="#history">Wcześniej...</a>
+                    <div id="history" class="collapse">
+                        <table class="table" data-bind="foreach: daysOffHistory">
+                            <tr>
+                                <td data-bind="text: moment(Date).format('l')"></td>
+                            </tr>
+                        </table>
+                    </div>
                     <button data-toggle="collapse" data-target="#addDayOff" class="btn btn-success btn-lg btn-block">Dodaj urlop</button>
                 </div>
             </div>

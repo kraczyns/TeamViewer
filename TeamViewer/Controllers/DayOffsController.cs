@@ -37,10 +37,24 @@ namespace TeamViewer.Controllers
         }
 
         [ResponseType(typeof(DayOff))]
-        public async Task<IHttpActionResult> GetDaysOff(int employeeId, bool isManager)
+        public async Task<IHttpActionResult> GetDaysOffHistory(int employeeId, bool isManager, bool history)
         {
             var daysoff = await db.DayOffs.Include(e => e.Employee)
-                .Where(e => e.EmployeeId == employeeId).Where(e => e.isManager == isManager).ToArrayAsync();
+                .Where(e => e.EmployeeId == employeeId).Where(e => e.isManager == isManager).Where(d => d.Date < DateTime.Now).OrderByDescending(x => x.Date).ToArrayAsync();
+
+            if (daysoff == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(daysoff);
+        }
+
+        [ResponseType(typeof(DayOff))]
+        public async Task<IHttpActionResult> GetDaysOffFuture(int employeeId, bool isManager, bool future)
+        {
+            var daysoff = await db.DayOffs.Include(e => e.Employee)
+                .Where(e => e.EmployeeId == employeeId).Where(e => e.isManager == isManager).Where(d => d.Date >= DateTime.Now).OrderByDescending(x => x.Date).ToArrayAsync();
 
             if (daysoff == null)
             {

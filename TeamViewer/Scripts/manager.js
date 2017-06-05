@@ -4,6 +4,8 @@
     self.managers = ko.observableArray();
     self.teamEmployees = ko.observableArray();
     self.daysOff = ko.observableArray();
+    self.daysOffHistory = ko.observableArray();
+    self.daysOffFuture = ko.observableArray();
     self.tasks = ko.observableArray();
     self.finishedTasks = ko.observableArray();
     self.error = ko.observable();
@@ -91,7 +93,8 @@
         StartDate: ko.observable(),
         EndDate: ko.observable(),
         Description: ko.observable(),
-        Points: ko.observable()
+        Points: ko.observable(),
+        Status: ko.observable()
     };
     self.setTask = function (item) {
         console.log('Getting task ', item.Id);
@@ -136,14 +139,29 @@
             EmployeeId: self.detailMan().Id,
             isManager: true
         };
-        ajaxHelper(daysUri, 'POST', dayOff);
+        ajaxHelper(daysUri, 'POST', dayOff).done(function () {
+            getAllDaysOff();
+            self.getDaysOffFuture(self.detailMan()); 
+        })
     };
-    self.getManagerDaysOff = function (item) {
-        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=true', 'GET').done(function (data) {
-            self.daysOff(data);
+    self.getDaysOffHistory = function (item) {
+        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=true&history=true', 'GET').done(function (data) {
+            self.daysOffHistory(data);
             self.detailMan(item);
         });
     };
+    self.getDaysOffFuture = function (item) {
+        ajaxHelper(daysUri + '?EmployeeId=' + item.Id + '&isManager=true&future=true', 'GET').done(function (data) {
+            self.daysOffFuture(data);
+            self.detailMan(item);
+        });
+    };
+    self.deleteDayOff = function (item) {
+        console.log('Usuwanie dnia wolnego');
+        ajaxHelper(daysUri + '/' + item.Id, 'DELETE').done(function (data) {
+            self.getDaysOffFuture(self.detailMan());
+        });
+    }
     function getAllDaysOff() {
         ajaxHelper(daysUri, 'GET').done(function (data) {
             self.daysOff(data);
@@ -152,7 +170,8 @@
 
 
     self.getManagerDetails = function (item) {
-        self.getManagerDaysOff(item);
+        self.getDaysOffHistory(item);
+        self.getDaysOffFuture(item);
         self.getManagerTeam(item);
         self.getManagerTasks(item);
     };
