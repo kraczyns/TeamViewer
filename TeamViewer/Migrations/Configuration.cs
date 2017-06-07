@@ -1,5 +1,6 @@
 namespace TeamViewer.Migrations
 {
+    using Infrastructure;
     using Models;
     using System;
     using System.Data.Entity;
@@ -15,6 +16,13 @@ namespace TeamViewer.Migrations
 
         protected override void Seed(TeamViewer.Models.TeamViewerContext context)
         {
+            var user = new Infrastructure.User()
+            {
+                username = "SuperPowerUser",
+                password = "asdasdasd",
+                id = 1
+            };
+
             context.DayOffs.AddOrUpdate(d => d.Id,
                 new DayOff() { Id = 1, Date = new DateTime(2017,5,28), EmployeeId = 1, isManager = false },
                 new DayOff() { Id = 2, Date = new DateTime(2017, 5, 29), EmployeeId = 1, isManager = false }
