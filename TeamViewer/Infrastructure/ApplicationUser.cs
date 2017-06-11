@@ -7,18 +7,21 @@ using System.Web;
 
 namespace TeamViewer.Infrastructure
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         [MaxLength(100)]
-        public string username { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string password { get; set; }
+        public string LastName { get; set; }
 
         [Required]
-        public int id { get; set; }
+        public byte Level { get; set; }
+
+        [Required]
+        public DateTime JoinDate { get; set; }
 
     }
 }

@@ -1,6 +1,8 @@
 namespace TeamViewer.Migrations
 {
     using Infrastructure;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using System;
     using System.Data.Entity;
@@ -16,12 +18,20 @@ namespace TeamViewer.Migrations
 
         protected override void Seed(TeamViewer.Models.TeamViewerContext context)
         {
-            var user = new Infrastructure.User()
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            var user = new ApplicationUser()
             {
-                username = "SuperPowerUser",
-                password = "asdasdasd",
-                id = 1
+                UserName = "SuperPowerUser",
+                Email = "taiseer.joudeh@mymail.com",
+                EmailConfirmed = true,
+                FirstName = "Taiseer",
+                LastName = "Joudeh",
+                Level = 1,
+                JoinDate = DateTime.Now.AddYears(-3)
             };
+
+            manager.Create(user, "MySuperP@ssword!");
 
             context.DayOffs.AddOrUpdate(d => d.Id,
                 new DayOff() { Id = 1, Date = new DateTime(2017,5,28), EmployeeId = 1, isManager = false },

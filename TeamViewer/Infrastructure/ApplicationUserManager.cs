@@ -9,9 +9,9 @@ using System.Web;
 
 namespace TeamViewer.Infrastructure
 {
-    public class ApplicationUserManager : UserManager<User>
+    public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<User> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
         }
@@ -19,7 +19,7 @@ namespace TeamViewer.Infrastructure
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var appDbContext = context.Get<ApplicationDbContext>();
-            var appUserManager = new ApplicationUserManager(new UserStore<User>(appDbContext));
+            var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
 
             return appUserManager;
         }
