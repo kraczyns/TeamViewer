@@ -73,7 +73,9 @@
             ManagerId: self.newEmployee.Manager().Id,
             Name: self.newEmployee.Name()
         };
-        ajaxHelper(employeesUri, 'POST', employee);
+        ajaxHelper(employeesUri, 'POST', employee).done(function (data) {
+            getAllEmployees();
+        });
     };
     self.deleteEmployee = function () {
         console.log('Usuwanie pracownika');
@@ -135,7 +137,9 @@
         var manager = {
             Name: self.newManager.Name()
         };
-        ajaxHelper(managersUri, 'POST', manager);
+        ajaxHelper(managersUri, 'POST', manager).done(function () {
+            getAllManagers();
+        })
     };
 
     self.deleteManager = function () {
