@@ -142,6 +142,7 @@
         console.log('Usuwanie managera');
         ajaxHelper(managersUri + '/' + self.detailMan().Id, 'DELETE').done(function (data) {
             getAllManagers();
+            getAllEmployees();
         });
     }
     self.getManager = function (item) {
