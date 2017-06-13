@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using TeamViewer.Infrastructure;
 
 namespace TeamViewer.Models
 {
@@ -15,7 +16,7 @@ namespace TeamViewer.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public TeamViewerContext() : base("name=TeamViewerContext")
+        public TeamViewerContext() : base("name=TeamViewerAzure")
         {
             this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
@@ -28,6 +29,6 @@ namespace TeamViewer.Models
 
         public System.Data.Entity.DbSet<TeamViewer.Models.Task> Tasks { get; set; }
 
-        public System.Data.Entity.DbSet<TeamViewer.Models.User> Users { get; set; }
+        public System.Data.Entity.DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

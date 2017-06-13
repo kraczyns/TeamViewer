@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using TeamViewer.Infrastructure;
 using TeamViewer.Models;
 
 namespace TeamViewer.Controllers
@@ -17,37 +18,36 @@ namespace TeamViewer.Controllers
     {
         private TeamViewerContext db = new TeamViewerContext();
 
-        [ResponseType(typeof(User))]
-        public IQueryable<User> GetUsers()
+        [ResponseType(typeof(ApplicationUser))]
+        public IQueryable<ApplicationUser> GetUsers()
         {
-            return db.Users;
+            return db.ApplicationUser;
         }
 
+        // GET: api/Login
         public async Task<bool> Login(string username, string password)
         {
-            var user = (from u in db.Users
-                        where u.username.Equals(username)
+            var user = (from u in db.ApplicationUser
+                        where u.UserName.Equals(username)
                         select u).Single();
 
-            if (user != null && user.password.Equals(password) == true)
+            if (user != null && user.PasswordHash.Equals(password) == true)
                 return true;
 
             return false;
         }
 
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> Register(string username, string password)
+        // POST: api/Login
+        [ResponseType(typeof(ApplicationUser))]
+        public async Task<IHttpActionResult> Register(ApplicationUser user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new User();
-            user.username = username;
-            user.password = password;
 
-            db.Users.Add(user);
+            db.ApplicationUser.Add(user);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
