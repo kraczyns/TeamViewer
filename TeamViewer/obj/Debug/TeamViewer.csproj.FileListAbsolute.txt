@@ -97,3 +97,4 @@ C:\Documents\Git\final\TeamViewer\TeamViewer\obj\Debug\TeamViewer.Migrations.Ini
 C:\Documents\Git\final\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csproj.GenerateResource.Cache
 C:\Documents\Git\final\TeamViewer\TeamViewer\obj\Debug\TeamViewer.dll
 C:\Documents\Git\final\TeamViewer\TeamViewer\obj\Debug\TeamViewer.pdb
+C:\Documents\Git\final\TeamViewer\TeamViewer\obj\Debug\TeamViewer.csprojResolveAssemblyReference.cache
