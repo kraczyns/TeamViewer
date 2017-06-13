@@ -17,7 +17,7 @@ namespace TeamViewer.Models
 
         public ModelFactory(System.Net.Http.HttpRequestMessage request, ApplicationUserManager appUserManager)
         {
-            _UrlHelper = new UrlHelper(request);
+            _UrlHelper = new System.Web.Http.Routing.UrlHelper(request);
             _AppUserManager = appUserManager;
         }
 
