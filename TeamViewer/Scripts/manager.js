@@ -81,6 +81,26 @@
             self.detailMan(item);
         });
     };
+    self.automaticPoints = function (Apoints, ID) {
+        console.log('Autmatyczne dodawanie punktów');
+        console.log('Punkty z zadania:', parseInt(Apoints));
+
+        self.getEmployee(ID);
+        console.log('Punkty pracownika:', parseInt(self.detail().Points));
+        var sum = parseInt(Apoints) + parseInt(self.detail().Points);
+        var id = self.detail().Id;
+        var employee = {
+            Id: self.detail().Id,
+            Name: self.detail().Name,
+            Points: sum,
+            ManagerId: self.detail().Manager.Id
+        };
+
+        ajaxHelper(employeesUri + '/' + self.detail().Id, 'PUT', employee).done(function (data) {
+            self.getEmployee(id);
+        });
+
+    };
     function getAllTasks() {
         ajaxHelper(tasksUri, 'GET').done(function (data) {
             self.tasks(data);
@@ -123,6 +143,10 @@
         };
         ajaxHelper(tasksUri + '/' + self.detailTask().Id, 'PUT', task).done(function (data) {
             self.getManagerTasks(self.detailMan());
+            if (task.Status == 4) {
+                self.automaticPoints(task.Points, task.EmployeeId);
+                self.getManagerTasks(self.detailMan());
+            }
         });
     };
 

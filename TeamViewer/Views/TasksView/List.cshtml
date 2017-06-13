@@ -1,13 +1,12 @@
 ﻿@section scripts {
     @Scripts.Render("~/bundles/task")
 }
-
 @{
     ViewBag.Title = "Zadania";
 }
+﻿@model TeamViewer.Models.Task
 <h1></h1>
 <div class="row">
-
     <div class="col-md-4">
         <div class="panel panel-warning">
             <div class="panel-heading h4"> <span class="glyphicon glyphicon-user"></span> Zadania </div>
@@ -30,7 +29,6 @@
         <button data-toggle="collapse" data-target="#addtask" class="btn btn-warning btn-lg btn-block">Dodaj zadanie</button>
     </div>
     <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
-    
     <div id="addtask" class="collapse">
         <div class="col-md-4">
             <div class="panel panel-warning">
@@ -39,9 +37,7 @@
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" data-bind="submit: addTask">
-
                         <div class="form-group">
-
                             <div class="col-sm-10">
                                 <strong>Opis: </strong>
                                 <span><textarea class="form-control" id="Description" data-bind="value: newTask.Description"></textarea></span>
@@ -54,11 +50,11 @@
                             </div>
                             <div class="col-sm-10">
                                 <strong>Przypisz do: </strong>
-                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: newTask.Employee"></select></span>
+                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: newTask.Employee, optionsCaption: 'Wybierz pracownika...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Manager: </strong>
-                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: newTask.Manager"></select></span>
+                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: newTask.Manager, optionsCaption: 'Wybierz managera...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Punkty: </strong>
@@ -71,55 +67,63 @@
             </div>
         </div>
     </div>
-
     <!-- ko if:detail() -->
-
     <div class="col-md-4">
         <div class="panel panel-warning">
             <div class="panel-heading h4">
                 <span class="glyphicon glyphicon-tasks"></span>
                 Szczegóły zadania &nbsp;
             </div>
-            <div class="panel-body">
-                <div class="tasks" data-bind="with: detail()">
-                    <div class="well">
-                        <div>
-                            <strong>Identyfikator zadania: </strong>
-                            <span data-bind="text: Id"></span>
-                        </div>
-                        <div>
-                            <strong>Data rozpoczęcia: </strong>
-                            <span data-bind="text: moment(StartDate).format('D/M/YYYY')"></span>
-                        </div>
-                        <div>
-                            <strong>Data zakończenia: </strong>
-                            <span data-bind="text: moment(EndDate).format('D/M/YYYY')"></span>
-                        </div>
-                        <div>
-                            <strong>Opis: </strong>
-                            <span data-bind="text: Description"></span>
-                        </div>
-                        <div>
-                            <strong>Punkty: </strong>
-                            <span data-bind="text: Points "></span>
-                        </div>
-                        <div>
-                            <strong>Status zadania: </strong>
-                            <span data-bind="text: Status "></span>
-                        </div>
-                        <div>
-                            <strong>Przypisane do: </strong>
-                            <span data-bind="text: Employee.Name "></span>
-                        </div>
-                        <div align="right">
-                            <button data-toggle="collapse" data-target="#edittask" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <table class="table">
+                <tr>
+                    <td><strong>Identyfikator zadania: </strong></td>
+                    <td data-bind="text: detail().Id"></td>
+                </tr>
+                <tr>
+                    <td><strong>Data rozpoczęcia: </strong></td>
+                    <td data-bind="text: moment(detail().StartDate).format('D/M/YYYY')"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Data zakończenia: </strong>
+                    </td>
+                    <td data-bind="text: moment(detail().EndDate).format('D/M/YYYY')"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Opis: </strong>
+                    </td>
+                    <td data-bind="text: detail().Description"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Punkty: </strong>
+                    </td>
+                    <td data-bind="text: detail().Points "></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Status zadania: </strong>
+                    </td>
+                    <td data-bind="text: detail().Status "></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Przypisane do: </strong>
+                    </td>
+                    <td data-bind="text: detail().Employee.Name "></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button data-toggle="collapse" data-target="#edittask" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+
         </div>
     </div>
-
     <div id="edittask" class="collapse">
         <div class="col-md-4">
             <div class="panel panel-warning">
@@ -127,31 +131,35 @@
                     Edytuj zadanie
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" data-bind="submit: addTask">
-
+                    <form class="form-horizontal">
                         <div class="form-group">
-
                             <div class="col-sm-10">
                                 <strong>Opis: </strong>
-                                <span><textarea class="form-control" id="Description" data-bind="value: updateTask.Description"></textarea></span>
+                                <span><textarea class="form-control" id="Description" data-bind="value: updatedTask.Description"></textarea></span>
                             </div>
                             <div class="col-sm-10">
-                                <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value: updateTask.StartDate" /></span>
+                                <strong>Data rozpoczęcia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="StartDate" data-bind="value: updatedTask.StartDate" /></span>
                             </div>
                             <div class="col-sm-10">
-                                <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value: updateTask.EndDate" /></span>
+                                <strong>Data zakończenia: </strong><span><input type="date" min="moment().valueOf()" max="2019-01-01" class="form-control" id="EndDate" data-bind="value: updatedTask.EndDate" /></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Przypisz do: </strong>
-                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: updateTask.Employee"></select></span>
+                                <span><select class="form-control" id="Employee" data-bind="options:employees, optionsText: 'Name', value: updatedTask.Employee, optionsCaption: 'Wybierz pracownika...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Manager: </strong>
-                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: updateTask.Manager"></select></span>
+                                <span><select id="Manager" class="form-control" data-bind="options:managers, optionsText: 'Name', value: updatedTask.Manager, optionsCaption: 'Wybierz managera...'"></select></span>
                             </div>
                             <div class="col-sm-10">
                                 <strong>Punkty: </strong>
-                                <span><input type="text" class="form-control" id="Points" data-bind="value: updateTask.Points"></span>
+                                <span><input type="text" class="form-control" id="Points" data-bind="value: updatedTask.Points"></span>
+                            </div>
+                            <div class="col-sm-10">
+                                <strong>Status zadania: </strong>
+                                <span>
+                                    @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control", @id = "Status", @data_bind = "value: updatedTask.Status" })
+                                </span>
                             </div>
                         </div>
                         <button data-bind="click: $root.updateTask" class="btn btn-warning btn-lg btn-block">Aktualizuj</button>
@@ -161,5 +169,4 @@
         </div>
     </div>
     <!-- /ko -->
-
 </div>

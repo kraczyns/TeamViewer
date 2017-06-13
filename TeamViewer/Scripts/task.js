@@ -250,7 +250,12 @@
             };
             ajaxHelper(tasksUri + '/' + self.detail().Id, 'PUT', task).done(function (data) {
                 self.getTask(self.detail());
+                if (task.Status == 4) {
+                    self.automaticPoints(task.Points, task.EmployeeId);
+                    self.getTask(self.detail());
+                }
                 getAllTasks();
+
             });		
     };
     // Fetch the initial data.

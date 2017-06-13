@@ -307,4 +307,3 @@ C:\Users\raczykar\Desktop\projekt\TeamViewer-master\TeamViewer\obj\Debug\TeamVie
 C:\Users\raczykar\Desktop\projekt\TeamViewer-master\TeamViewer\obj\Debug\TeamViewer.csproj.GenerateResource.Cache
 C:\Users\raczykar\Desktop\projekt\TeamViewer-master\TeamViewer\obj\Debug\TeamViewer.dll
 C:\Users\raczykar\Desktop\projekt\TeamViewer-master\TeamViewer\obj\Debug\TeamViewer.pdb
-C:\Users\raczykar\Desktop\projekt\TeamViewer-master\TeamViewer\obj\Debug\TeamViewer.csprojResolveAssemblyReference.cache
